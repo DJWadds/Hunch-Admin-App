@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import Home from './Components/Pages/Home';
 import Login from './Components/Pages/Login';
 import {authenticateAdmin} from './external/login';
+
 
 class App extends Component {
   state = {
