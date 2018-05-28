@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
+
 class Home extends Component {
+    componentDidMount() {
+
+    }
+    state ={
+
+    }
     render() {
     return (
         <section id="Home">

@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import Home from './Components/Pages/Home';
 import Login from './Components/Pages/Login';
+import {authenticateAdmin} from './external/login';
 
 class App extends Component {
   state = {
-    user: false
+    admin: false
   }
   render() {
-    const {user} = this.state;
+    const {admin} = this.state;
     const {login} = this;
     return (
       <div id="App">
-        {user ? <Home /> : <Login login={login} />}
+        {admin ? <Home /> : <Login login={login} />}
       </div>
     );
   }
 
   login = (email, password) => {
-    console.log(email)
-    console.log(password)
-    this.setState({user : true})
+    const authentication = authenticateAdmin(email, password)
+    if (authentication === true) {
+      this.setState({admin : true})
+    } else {
+      console.log(authentication)
+    }
   }
 }
 
