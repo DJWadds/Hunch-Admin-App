@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {eventList} from '../../external/eventsList';
 import Event from '../Generic/Event';
+import '../../css/Home.css';
 
 class Home extends Component {
     componentDidMount() {

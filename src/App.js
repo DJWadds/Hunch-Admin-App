@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, NavLink} from 'react-router-dom';
 import {authenticateAdmin} from './external/login';
+import './App.css';
 
 import Login from './Components/Pages/Login';
 import Home from './Components/Pages/Home';
@@ -10,7 +11,7 @@ import ActiveEvent from './Components/Pages/ActiveEvent';
 
 class App extends Component {
   state = {
-    admin: true
+    admin: false
   }
   render() {
     const {admin} = this.state;
