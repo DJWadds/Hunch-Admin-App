@@ -7,7 +7,7 @@ import {authenticateAdmin} from './external/login';
 
 class App extends Component {
   state = {
-    admin: false
+    admin: true
   }
   render() {
     const {admin} = this.state;
