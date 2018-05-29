@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-
-import Home from './Components/Pages/Home';
-import Login from './Components/Pages/Login';
+import { BrowserRouter as Router, Route, Switch, NavLink} from 'react-router-dom';
 import {authenticateAdmin} from './external/login';
+
+import Login from './Components/Pages/Login';
+import Home from './Components/Pages/Home';
+import ActiveEvent from './Components/Pages/ActiveEvent';
+
 
 
 class App extends Component {
@@ -13,9 +16,16 @@ class App extends Component {
     const {admin} = this.state;
     const {login} = this;
     return (
+    <Router>
       <div id="App">
-        {admin ? <Home /> : <Login login={login} />}
+        {admin ?  <NavLink to='/home' >All Events </NavLink> 
+                  : <Login login={login} />}
+        <Switch>
+            <Route path="/event/:id" render={(props) => <ActiveEvent {...props}/>}/>  
+            <Route exact path="/home" render={() => <Home />}/>
+        </Switch>
       </div>
+    </Router>
     );
   }
 
