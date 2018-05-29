@@ -1,12 +1,12 @@
 import React from 'react';
-import Button from '../Generic/Button';
+import { NavLink } from 'react-router-dom';
 
 function Event ({event, gotoEvent}) {
-    return <div className="event" key={event.id}>
+    return <div key={event.id} className="event">
         <h3> {event.name} </h3>
         <p> Type: {event.type} </p>
         <p> Date: {event.date} </p>
-        <Button text='Go to event' onClick={() => gotoEvent(event.id)} />
+        <NavLink to={`/event/${event.id}`}>Go to event</NavLink>
     </div>
 }
 
