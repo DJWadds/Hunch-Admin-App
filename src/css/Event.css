@@ -1,0 +1,17 @@
+.event {
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px 10px 10px;
+}
+
+.event h3 {
+    text-align: center;
+    padding: 10px;;
+}
+
+.event img {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
