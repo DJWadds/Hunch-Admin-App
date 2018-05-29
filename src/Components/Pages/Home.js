@@ -20,7 +20,10 @@ class Home extends Component {
     return ( 
         <section id="Home">
             <h1> Events </h1>
+            <button type="button" class="btn btn-danger">Add Event</button>
+            <div id="events">
             {events.map((event, index) => <Event event={event} gotoEvent={gotoEvent} index={index}/>)}
+            </div>
         </section>
     );
     }
