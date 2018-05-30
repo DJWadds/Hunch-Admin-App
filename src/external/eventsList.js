@@ -5,7 +5,7 @@ const events = [
         date: '2018-06-14 14:00:00',
         img: 'https://placeimg.com/640/480/animals',
         description: 'Some information about the event',
-        live: false,
+        live: true,
         start: false,
         complete: false
     },
@@ -16,7 +16,7 @@ const events = [
         img: 'https://placeimg.com/640/480/animals',
         description: 'Some information about the event',
         live: false,
-        start: false,
+        start: true,
         complete: false
     },
     {   id: 'bbg1',
