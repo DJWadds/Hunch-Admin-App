@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class EventInformation extends Component {
+class EventTracker extends Component {
     componentDidMount () {
     }
     state = {
@@ -10,11 +10,11 @@ class EventInformation extends Component {
     const {} = this;
     const {} = this.props
     return (
-        <section id="eventInformation">
-            <h1> Event Information </h1>
+        <section id="eventTracker">
+            <h1> Event Tracker </h1>
         </section>
     );
     }
 }
 
-export default EventInformation;
+export default EventTracker;
