@@ -11,21 +11,19 @@ import Event from '../Generic/Event';
 class Home extends Component {
     componentDidMount() {
         let events = eventList();
-        const startedEvent = events.filter(event => event.start === true);
         const liveEvent = events.filter(event => event.live === true);
         events = events.filter(event => event.live === false && event.start === false);
         events.sort(function(a, b) {
             return  +new Date(a.date) - +new Date(b.date);
         });
-        this.setState({startedEvent: startedEvent[0], liveEvent: liveEvent[0], events});
+        this.setState({liveEvent: liveEvent[0], events});
     };
     state = {
         events: [],
-        startedEvent: false, 
         liveEvent: false
     };
     render() {
-    const {events, liveEvent, startedEvent} = this.state;
+    const {events, liveEvent} = this.state;
     const {gotoEvent, addEvent} = this;
     return ( 
         <section id="Home">
@@ -36,9 +34,9 @@ class Home extends Component {
             <div id="currentEvents">
                 {/* <h2> Current Events</h2> */}
                 <div id="closeEvents">
-                    <CloseEvents event={startedEvent} text="Started Event" gotoEvent={gotoEvent}/>
-                    <CloseEvents event={liveEvent} text="Live Event" gotoEvent={gotoEvent}/>
+                    <CloseEvents event={liveEvent} text="Live Event" gotoEvent={gotoEvent} live={true}/>
                     <CloseEvents event={events[0]} text="Next Event" gotoEvent={gotoEvent}/>
+                    <CloseEvents event={events[1]} text="Coming Soon" gotoEvent={gotoEvent}/>
                 </div>
             </div>
             <div id="upcommingEvents">
