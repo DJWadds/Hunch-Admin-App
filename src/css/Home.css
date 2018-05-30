@@ -12,7 +12,28 @@
     margin: 0 auto;
 }
 
-#events {
+#currentEvents {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+#currentEvents, #upcommingEvents {
+    text-align: center;
+    padding: 10px;
+    margin: 10px; 
+}
+
+#currentEvents h2, #upcommingEvents h2 {
+    text-decoration: underline;
+    padding: 10px;
+}
+
+#closeEvents {
+    padding: 10px;
+    margin: 10px;
+}
+
+#events, #closeEvents {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
