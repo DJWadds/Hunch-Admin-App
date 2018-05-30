@@ -29,15 +29,23 @@ class Home extends Component {
     const {gotoEvent, addEvent} = this;
     return ( 
         <section id="Home">
-            <h1> Events </h1>
-            <AddEvent addEvent={addEvent}/>
-            <div id="closeEvents">
-            <CloseEvents event={startedEvent} text="Started Event"/>
-            <CloseEvents event={liveEvent} text="Live Event"/>
-            <CloseEvents event={events[0]} text="Next Event"/>
+            <div id="homeHead">
+                <h1> Events </h1>
+                <AddEvent addEvent={addEvent}/>
             </div>
-            <div id="events">
-            {events.map((event, index) => <Event event={event} gotoEvent={gotoEvent} index={index} key={event.id}/>)}
+            <div id="currentEvents">
+                {/* <h2> Current Events</h2> */}
+                <div id="closeEvents">
+                    <CloseEvents event={startedEvent} text="Started Event" gotoEvent={gotoEvent}/>
+                    <CloseEvents event={liveEvent} text="Live Event" gotoEvent={gotoEvent}/>
+                    <CloseEvents event={events[0]} text="Next Event" gotoEvent={gotoEvent}/>
+                </div>
+            </div>
+            <div id="upcommingEvents">
+                <h2> Upcomming Events</h2>
+                <div id="events">
+                {events.map((event, index) => <Event event={event} gotoEvent={gotoEvent} index={index} key={event.id}/>)}
+                </div>
             </div>
 
             

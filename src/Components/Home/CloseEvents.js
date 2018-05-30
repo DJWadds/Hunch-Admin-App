@@ -1,8 +1,16 @@
 import React from 'react';
+import Event from '../Generic/Event';
 
-function CloseEvents ({event, text}) {
+function CloseEvents ({event, text, gotoEvent}) {
   return <div className="closeEvent">
-    {event ? <div> {text} </div> : <div> {text} </div>}
+    {event ? 
+      <div> 
+        <h3> {text} </h3>
+        <Event event={event} gotoEvent={gotoEvent}/> 
+      </div> 
+      : 
+      <div> {text} </div>
+      }
   </div>
 }
 
