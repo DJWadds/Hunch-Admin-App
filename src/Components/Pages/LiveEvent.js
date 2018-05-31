@@ -4,20 +4,22 @@ import axios from 'axios';
 import {addNewEventUrl} from '../../config/index';
 import '../../css/LiveEvent.css';
 
-import EventHeader from '../LiveEvent/EventHeader';
-import EventInformation from '../LiveEvent/EventInformation';
-import Questions from '../LiveEvent/Questions';
-import EventTracker from '../LiveEvent/EventTracker';
-import Graphs from '../LiveEvent/Graphs';
+import EventInformation from '../currentEvent/EventInformation';
+import Questions from '../currentEvent/Questions';
+import EventTracker from '../currentEvent/EventTracker';
+import Graphs from '../currentEvent/Graphs';
 
 class ActiveEvent extends Component {
     componentDidMount () {
         const id = this.props.match.params.id;
-        const event = getEvenById(id);
-        this.setState({event: event[0]});
+        let event = getEvenById(id);
+        event = event[0];
+        const currentEvent = {event}
+        this.setState({currentEvent});
     }
     state = {
-        event: {},
+        eventId: null,
+        currentEvent: null,
         questions: [
             {
                 question: 'Question One?', 
@@ -37,12 +39,16 @@ class ActiveEvent extends Component {
     render() {
     if (!this.props.admin) return null;
 
-    const {event, questions, setupDone} = this.state;
+    const {questions} = this.state;
     const {addQuestion, editQuestion, setupEvent} = this;
 
     return (
         <section id="active-event">
-            <EventHeader setupDone={setupDone} setupEvent={setupEvent} event={event}/>
+            <div id="eventHeader">
+                <button type="button" className="btn btn-primary" onClick={setupEvent}>Enter Setup</button>
+                <button type="button" className="btn btn-primary">Primary</button>
+                <button type="button" className="btn btn-primary">Primary</button>
+            </div>
             <div id="active-event-content">
                 <div id="active-event-content-left">
                     <EventInformation />
@@ -57,28 +63,27 @@ class ActiveEvent extends Component {
     );
     }
 
-    setupEvent = (questions) => {
-        let event = this.state.event
-        event.questions = questions
-        let liveEvent = {event}
-        for (let i = 0; i < questions; i++) {
-            liveEvent[i + 1] = {
-                    question: `Question ${i+1}?`,
+    setupEvent = () => {
+        let currentEvent = this.state.currentEvent
+        currentEvent.event.questions = 6
+        for (let i = 1; i <= 6; i++) {
+            currentEvent[i] = {
+                    question: `Question ${i}?`,
                     choiceA: '',
                     choiceB: '',
                     choiceC: '',
                     usersA: '',
                     usersB: '',
                     usersC: '',
-                    timeToSet: ''
+                    timeToSet: '',
                 }
         }
-        console.log(liveEvent)
+        console.log(currentEvent)
         this.setState({setupDone : !this.state.setupDone})
-        event = JSON.stringify(event)
-        axios.post(addNewEventUrl, {event})
+        axios.post(addNewEventUrl, {currentEvent})
         .then((res) => {
-            console.log(res)
+            const eventId = res.data.eventID
+            this.setState({eventId, currentEvent})
             return console.log(res.data.result)
         })
         .catch((err) => {
