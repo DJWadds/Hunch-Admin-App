@@ -4,6 +4,7 @@ import {authenticateAdmin} from './external/login';
 import './App.css';
 
 import Login from './Components/Pages/Login';
+import Nav from './Components/Generic/Nav';
 import Home from './Components/Pages/Home';
 import LiveEvent from './Components/Pages/LiveEvent';
 
@@ -19,11 +20,12 @@ class App extends Component {
     return (
     <Router>
       <div id="App">
-        {admin ?  <div id="nav"> <NavLink to='/home' >All Events </NavLink> </div>
+        {admin ?  <Nav />
                   : <Login login={login} />}
         <Switch>
-            <Route path="/event/:id" render={(props) => <LiveEvent {...props}/>}/>  
-            <Route exact path="/home" render={() => <Home />}/>
+            <Route path="/login" render={(props) => <LiveEvent {...props} login={login}/>}/>
+            <Route path="/event/:id" render={(props) => <LiveEvent {...props} admin={admin}/>}/>  
+            <Route exact path="/allEvents" render={() => <Home admin={admin}/>}/>
         </Switch>
       </div>
     </Router>
