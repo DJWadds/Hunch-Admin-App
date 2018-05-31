@@ -8,7 +8,12 @@ img {
 }
 
 #nav {
-  height: 5vh;
-  border: 1px solid black;
-  margin: 0 10px;
+  width: calc(98vw - 10px);
+  height: 3vh;
+  padding: 5px;
+  margin: 0 auto 15px;
+}
+
+#nav button {
+  margin: 0 5px;
 }

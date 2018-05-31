@@ -23,8 +23,11 @@ class Home extends Component {
         liveEvent: false
     };
     render() {
+    if (!this.props.admin) return null;
+
     const {events, liveEvent} = this.state;
     const {gotoEvent, addEvent} = this;
+    
     return ( 
         <section id="Home">
             <div id="homeHead">

@@ -35,8 +35,11 @@ class ActiveEvent extends Component {
         setupDone: false
     };
     render() {
+    if (!this.props.admin) return null;
+
     const {event, questions, setupDone} = this.state;
-    const {addQuestion, editQuestion, setupEvent} = this
+    const {addQuestion, editQuestion, setupEvent} = this;
+
     return (
         <section id="active-event">
             <EventHeader setupDone={setupDone} setupEvent={setupEvent} event={event}/>
