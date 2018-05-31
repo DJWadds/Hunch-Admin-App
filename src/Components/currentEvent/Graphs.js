@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Graphs extends Component {
     render() {
     return (
-        <section id="graphs">
+        <section id="graphs-section">
             <h1> Event Graphs </h1>
         </section>
     );

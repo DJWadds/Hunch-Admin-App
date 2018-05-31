@@ -30,7 +30,7 @@ class CurrentEvent extends Component {
 
     return (
         <section id="current-event">
-            <div id="eventHeader">
+            <div id="event-header-section">
                 <button type="button" className="btn btn-primary" onClick={setupEvent}>Enter Setup</button>
                 <button type="button" className="btn btn-primary">Primary</button>
                 <button type="button" className="btn btn-primary">Primary</button>
@@ -54,14 +54,15 @@ class CurrentEvent extends Component {
         currentEvent.event.questions = 6
         for (let i = 1; i <= 6; i++) {
             currentEvent[i] = {
-                    question: `Question ${i}?`,
-                    choiceA: '',
-                    choiceB: '',
-                    choiceC: '',
-                    usersA: '',
-                    usersB: '',
-                    usersC: '',
-                    timeToSet: '',
+                id: i,
+                question: `Input question here`,
+                choiceA: 'Input choice A here',
+                choiceB: 'Input choice B here',
+                choiceC: 'Input choice C here',
+                usersA: [],
+                usersB: [],
+                usersC: [],
+                timeToSet: 'Format: hh:mm:ss',
                 }
         }
         console.log(currentEvent)
@@ -92,8 +93,12 @@ class CurrentEvent extends Component {
        this.setState({questions})
     }
 
-    editQuestion = (showQuestion, index) => {
-        this.setState({showQuestion, index})
+    editQuestion = (question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput) => {
+        question.question = questionInput
+        question.choiceA = choiceAInput
+        question.choiceB = choiceBInput
+        question.choiceC = choiceCInput
+        question.timeToSet = timeToSetInput
     }
 }
 

@@ -7,15 +7,24 @@
     margin: 0 auto;
 }
 
-#eventHeader, #eventInformation, #questions-section, #eventTracker, #graphs {
+#event-header-section, 
+#event-information-section, 
+#questions-section, 
+#event-tracker-section, 
+#graphs-section {
     border: 1px solid black;
 }
 
-#eventHeader {
+/* #event-header-section,  */
+#event-header-section {
     height: 5vh;
     padding: 5px;
 }
 
+#event-header-section button {
+    margin: 0 5px;
+}
+/* #active-event-content */
 #active-event-content {
     height: 88vh;
     display: grid;
@@ -29,18 +38,56 @@
     grid-gap: 5px;
 }
 
-#eventInformation {
+/* #event-information-section,  */
+#event-information-section {
     height: 20vh;
 }
 
+/* #questions-section,  */
 #questions-section {
     height: 68vh;
+    overflow-y: auto;
 }
 
-#eventTracker {
+#questions-section h2 {
+    text-decoration: underline;
+    text-align: center;
+    padding: 10px 5px 5px;
+}
+
+#setQuestions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+    padding: 5px;
+}
+
+.question {
+    border: 1px solid black;
+    padding: 5px;
+    overflow-y: auto;
+}
+
+.question h3 {
+    text-decoration: underline;
+    text-align: center;
+    padding: 10px 5px 5px;
+}
+
+.question-time {
+    padding: 10px 0 2px;
+}
+
+.question button {
+    display: block;
+    margin: 5px auto;
+}
+/* #event-tracker-section,  */
+#event-tracker-section {
     height: 44vh;
 }
 
-#graphs {
+/* #graphs-section */
+#graphs-section {
     height: 44vh;
 }

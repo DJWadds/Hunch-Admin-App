@@ -5,7 +5,7 @@ class EventTracker extends Component {
     }
     render() {
     return (
-        <section id="eventTracker">
+        <section id="event-tracker-section">
             <h1> Event Tracker </h1>
         </section>
     );
