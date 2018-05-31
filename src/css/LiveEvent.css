@@ -12,11 +12,12 @@
 }
 
 #eventHeader {
-    height: 10vh;
+    height: 5vh;
+    padding: 5px;
 }
 
 #active-event-content {
-    height: 80vh;
+    height: 88vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 5px;
@@ -29,17 +30,17 @@
 }
 
 #eventInformation {
-    height: 15vh;
+    height: 20vh;
 }
 
 #questions-section {
-    height: 65vh;
+    height: 68vh;
 }
 
 #eventTracker {
-    height: 40vh;
+    height: 44vh;
 }
 
 #graphs {
-    height: 40vh;
+    height: 44vh;
 }
