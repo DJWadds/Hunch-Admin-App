@@ -93,8 +93,12 @@ class CurrentEvent extends Component {
        this.setState({questions})
     }
 
-    editQuestion = (showQuestion, index) => {
-        this.setState({showQuestion, index})
+    editQuestion = (question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput) => {
+        question.question = questionInput
+        question.choiceA = choiceAInput
+        question.choiceB = choiceBInput
+        question.choiceC = choiceCInput
+        question.timeToSet = timeToSetInput
     }
 }
 

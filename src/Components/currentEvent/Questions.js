@@ -11,7 +11,7 @@ class Questions extends Component {
         questions: []
     };
     render() {
-    // const {addQuestion} = this.props
+    const {editQuestion} = this.props
     const {questions} = this.state
     // console.log(questions)
     return (
@@ -19,7 +19,7 @@ class Questions extends Component {
             <h2> Questions </h2>
             {/* <button type="button" className="btn btn-danger" onClick={addQuestion}>Add Question</button> */}
             <div id="setQuestions">
-                {questions.map((question, i) => <Question question={question} i={i} key={i}/>)}
+                {questions.map((question, i) => <Question question={question} i={i} key={i} editQuestion={editQuestion}/>)}
             </div>
             
 
