@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {getEvenById} from '../../external/eventsList';
 import axios from 'axios';
-import {addNewEventUrl} from '../../config/index';
+import {addNewEventUrlTest, addNewEventUrlProject} from '../../config/index';
 import '../../css/LiveEvent.css';
 
 import EventInformation from '../currentEvent/EventInformation';
@@ -67,7 +67,7 @@ class CurrentEvent extends Component {
         }
         console.log(currentEvent)
         this.setState({setupDone : !this.state.setupDone})
-        axios.post(addNewEventUrl, {currentEvent})
+        axios.post(addNewEventUrlTest, {currentEvent})
         .then((res) => {
             const eventId = res.data.eventID
             this.setState({eventId, currentEvent})
