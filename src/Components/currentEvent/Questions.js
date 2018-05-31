@@ -2,8 +2,18 @@ import React, { Component } from 'react';
 import Question from '../Generic/Question';
 
 class Questions extends Component {
+    componentDidUpdate(prevrops) {
+        if(prevrops !== this.props) {
+            this.setQuestionsArray();
+        }
+    }
+    state = {
+        questions: []
+    };
     render() {
-    const {questions, addQuestion} = this.props
+    const {addQuestion} = this.props
+    const {questions} = this.state
+    // console.log(questions)
     return (
         <section id="questions-section">
             <h3> Questions </h3>
@@ -16,7 +26,17 @@ class Questions extends Component {
         </section>
     );
     }
-
+    setQuestionsArray = () => {
+        const currentEvent = this.props.currentEvent
+        if (currentEvent === null) return null;
+        const numberOfQuestions = currentEvent.event.questions;
+        const questions = [];
+        for (let i = 1; i <= numberOfQuestions; i++) {
+            questions.push(currentEvent[i])
+            console.log(currentEvent[i])
+        }
+        this.setState({questions})
+    }
     
 }
 

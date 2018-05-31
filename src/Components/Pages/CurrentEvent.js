@@ -9,7 +9,7 @@ import Questions from '../currentEvent/Questions';
 import EventTracker from '../currentEvent/EventTracker';
 import Graphs from '../currentEvent/Graphs';
 
-class ActiveEvent extends Component {
+class CurrentEvent extends Component {
     componentDidMount () {
         const id = this.props.match.params.id;
         let event = getEvenById(id);
@@ -20,30 +20,16 @@ class ActiveEvent extends Component {
     state = {
         eventId: null,
         currentEvent: null,
-        questions: [
-            {
-                question: 'Question One?', 
-                choices: ['Choice 1', 'Choice 2', 'Choice 3'],
-                state: 'unsent', 
-                timeToSet: '14:55' 
-            },
-            {
-                question: 'Question Two?', 
-                choices: ['Choice 1', 'Choice 2', 'Choice 3'],
-                state: 'unsent', 
-                timeToSet: '15:10' 
-            }
-        ],
         setupDone: false
     };
     render() {
     if (!this.props.admin) return null;
 
-    const {questions} = this.state;
-    const {addQuestion, editQuestion, setupEvent} = this;
+    const {currentEvent} = this.state;
+    const {editQuestion, setupEvent} = this;
 
     return (
-        <section id="active-event">
+        <section id="current-event">
             <div id="eventHeader">
                 <button type="button" className="btn btn-primary" onClick={setupEvent}>Enter Setup</button>
                 <button type="button" className="btn btn-primary">Primary</button>
@@ -52,7 +38,7 @@ class ActiveEvent extends Component {
             <div id="active-event-content">
                 <div id="active-event-content-left">
                     <EventInformation />
-                    <Questions questions={questions} addQuestion={addQuestion} editQuestion={editQuestion}/>
+                    <Questions currentEvent={currentEvent} editQuestion={editQuestion}/>
                 </div>
                 <div id="active-event-content-right">
                     <EventTracker />
@@ -113,4 +99,4 @@ class ActiveEvent extends Component {
 
 
 
-export default ActiveEvent;
+export default CurrentEvent;
