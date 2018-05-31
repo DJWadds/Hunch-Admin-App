@@ -4,6 +4,7 @@ import axios from 'axios';
 import {addNewEventUrlTest, addNewEventUrlProject} from '../../config/index';
 import '../../css/LiveEvent.css';
 
+import Time from '../Generic/Time';
 import EventInformation from '../currentEvent/EventInformation';
 import Questions from '../currentEvent/Questions';
 import EventTracker from '../currentEvent/EventTracker';
@@ -31,9 +32,12 @@ class CurrentEvent extends Component {
     return (
         <section id="current-event">
             <div id="event-header-section">
-                <button type="button" className="btn btn-primary" onClick={setupEvent}>Enter Setup</button>
-                <button type="button" className="btn btn-primary">Primary</button>
-                <button type="button" className="btn btn-primary">Primary</button>
+                <div>
+                    <button type="button" className="btn btn-primary" onClick={setupEvent}>Enter Setup</button>
+                    <button type="button" className="btn btn-primary">Primary</button>
+                    <button type="button" className="btn btn-primary">Primary</button>
+                </div>
+                <Time />
             </div>
             <div id="active-event-content">
                 <div id="active-event-content-left">

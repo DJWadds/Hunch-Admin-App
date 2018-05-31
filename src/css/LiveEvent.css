@@ -18,11 +18,19 @@
 /* #event-header-section,  */
 #event-header-section {
     height: 5vh;
+    display: grid;
+    grid-template-columns: 70% 30%;
     padding: 5px;
 }
 
 #event-header-section button {
     margin: 0 5px;
+}
+
+#time {
+    font-weight: bold;
+    display: block;
+    margin: auto;
 }
 /* #active-event-content */
 #active-event-content {
