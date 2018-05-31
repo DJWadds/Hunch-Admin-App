@@ -7,7 +7,8 @@ const events = [
         description: 'Some information about the event',
         live: true,
         start: false,
-        complete: false
+        complete: false,
+        users: []
     },
     {   id: 'wcg1',
         name: 'World Cup Game 1',
@@ -17,7 +18,8 @@ const events = [
         description: 'Some information about the event',
         live: false,
         start: true,
-        complete: false
+        complete: false,
+        users: []
     },
     {   id: 'bbg1',
         name: 'Baseball Game 1',
@@ -27,7 +29,8 @@ const events = [
         description: 'Some information about the event',
         live: false,
         start: false,
-        complete: false
+        complete: false,
+        users: []
     },
     {   id: 'tlf',
         name: 'London Final',
@@ -37,7 +40,8 @@ const events = [
         description: 'Some information about the event',
         live: false,
         start: false,
-        complete: false
+        complete: false,
+        users: []
     },
     {   id: 'f1r',
         name: 'F1 Race',
@@ -47,7 +51,8 @@ const events = [
         description: 'Some information about the event',
         live: false,
         start: false,
-        complete: false
+        complete: false,
+        users: []
     },
     {   id: 'xfsf',
         name: 'X-Factor Final',
@@ -57,7 +62,8 @@ const events = [
         description: 'Some information about the event',
         live: false,
         start: false,
-        complete: false
+        complete: false,
+        users: []
     },
     {   id: 'rr19',
         name: 'Rat Race',
@@ -67,7 +73,8 @@ const events = [
         description: 'Some information about the event',
         live: false,
         start: false,
-        complete: false
+        complete: false,
+        users: []
     },
     {   id: 'wcg8',
         name: 'World Cup Game 8',
@@ -77,7 +84,8 @@ const events = [
         description: 'Some information about the event',
         live: false,
         start: false,
-        complete: false
+        complete: false,
+        users: []
     }
 ]
 

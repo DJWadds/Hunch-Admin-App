@@ -51,14 +51,13 @@ class Home extends Component {
     );
     }
 
-    addEvent = (eventName, eventType, eventDate, eventImgUrl, questions) => {
+    addEvent = (eventName, eventType, eventDate, eventImgUrl) => {
         let Oevent = {
             name: eventName,
             type: eventType,
             date: eventDate,
             img: eventImgUrl,
             description: '',
-            questions,
             live: false,
             start: false,
             complete: false

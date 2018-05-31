@@ -7,11 +7,10 @@ class AddEvent extends Component {
         eventName: '',
         eventType: '',
         eventDate: '',
-        eventImgUrl: '',
-        questions: 0
+        eventImgUrl: ''
     }
     render() {
-    const {eventName, eventType, eventDate, eventImgUrl, questions} = this.state;
+    const {eventName, eventType, eventDate, eventImgUrl} = this.state;
     const {addEvent} = this.props;
     const {updateEventName, updateEventType, updateEventDate, updateEventImgUrl} = this;
     return (<section id="addEvent">
@@ -44,7 +43,7 @@ class AddEvent extends Component {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" onClick={() => addEvent(eventName, eventType, eventDate, eventImgUrl, questions)}>Add Event</button>
+                        <button type="button" className="btn btn-primary" onClick={() => addEvent(eventName, eventType, eventDate, eventImgUrl)}>Add Event</button>
                     </div>
                 </div>
             </div>
