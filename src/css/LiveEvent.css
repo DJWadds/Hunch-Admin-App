@@ -1,0 +1,45 @@
+#active-event {
+    width: 98vw;
+    height: 95vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 5px;
+    margin: 0 auto;
+}
+
+#eventHeader, #eventInformation, #questions-section, #eventTracker, #graphs {
+    border: 1px solid black;
+}
+
+#eventHeader {
+    height: 10vh;
+}
+
+#active-event-content {
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+}
+
+#active-event-content-left, #active-event-content-right {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 5px;
+}
+
+#eventInformation {
+    height: 15vh;
+}
+
+#questions-section {
+    height: 65vh;
+}
+
+#eventTracker {
+    height: 40vh;
+}
+
+#graphs {
+    height: 40vh;
+}

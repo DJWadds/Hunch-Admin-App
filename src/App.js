@@ -5,7 +5,7 @@ import './App.css';
 
 import Login from './Components/Pages/Login';
 import Home from './Components/Pages/Home';
-import ActiveEvent from './Components/Pages/ActiveEvent';
+import LiveEvent from './Components/Pages/LiveEvent';
 
 
 
@@ -19,10 +19,10 @@ class App extends Component {
     return (
     <Router>
       <div id="App">
-        {admin ?  <NavLink to='/home' >All Events </NavLink> 
+        {admin ?  <div id="nav"> <NavLink to='/home' >All Events </NavLink> </div>
                   : <Login login={login} />}
         <Switch>
-            <Route path="/event/:id" render={(props) => <ActiveEvent {...props}/>}/>  
+            <Route path="/event/:id" render={(props) => <LiveEvent {...props}/>}/>  
             <Route exact path="/home" render={() => <Home />}/>
         </Switch>
       </div>
