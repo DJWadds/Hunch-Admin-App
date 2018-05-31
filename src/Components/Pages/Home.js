@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {addNewEventUrl} from '../../config/index';
+import {addNewEventUrlTest} from '../../config/index';
 import {eventList} from '../../external/eventsList';
 import '../../css/Home.css';
 
@@ -66,7 +66,7 @@ class Home extends Component {
             complete: false
         }
         const event = JSON.stringify(Oevent)
-        axios.post(addNewEventUrl, {event})
+        axios.post(addNewEventUrlTest, {event})
         .then((res) => {
             const eventID = res.data.eventID;
             const events = this.state.events;
