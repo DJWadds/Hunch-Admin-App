@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {getEvenById} from '../../external/eventsList';
 import axios from 'axios';
-import {addNewEventUrlTest, addNewEventUrlProject} from '../../config/index';
+import {addNewEventUrlTest, /*addNewEventUrlProject,*/ editQuestionUrl} from '../../config/index';
 import '../../css/LiveEvent.css';
 
 import Time from '../Generic/Time';
@@ -19,16 +19,25 @@ class CurrentEvent extends Component {
         this.setState({currentEvent});
     }
     state = {
-        eventId: null,
-        currentEvent: null,
+        time: new Date(),
+        eventID: null,
+        currentEvent: {event: {questions: 0}},
         setupDone: false
     };
     render() {
     if (!this.props.admin) return null;
 
-    const {currentEvent} = this.state;
-    const {editQuestion, setupEvent} = this;
-
+    const {currentEvent, time} = this.state;
+    const {editQuestion, setupEvent, updateTime} = this;
+    let clockTime = time.toLocaleTimeString();
+    for (let i = 1; i <= currentEvent.event.questions; i++) {
+        if (currentEvent[i].timeToSet === clockTime) {
+            console.log(currentEvent[i]);
+        }
+    }
+    if (time.toLocaleTimeString() === '14:24:30') {
+        console.log('yessss');
+    }
     return (
         <section id="current-event">
             <div id="event-header-section">
@@ -37,7 +46,7 @@ class CurrentEvent extends Component {
                     <button type="button" className="btn btn-primary">Primary</button>
                     <button type="button" className="btn btn-primary">Primary</button>
                 </div>
-                <Time />
+                <Time updateTime={updateTime}/>
             </div>
             <div id="active-event-content">
                 <div id="active-event-content-left">
@@ -66,15 +75,16 @@ class CurrentEvent extends Component {
                 usersA: [],
                 usersB: [],
                 usersC: [],
-                timeToSet: 'Format: hh:mm:ss',
+                timeToSet: currentEvent.event.date.slice(11),
+                closed: false
                 }
         }
         console.log(currentEvent)
         this.setState({setupDone : !this.state.setupDone})
         axios.post(addNewEventUrlTest, {currentEvent})
         .then((res) => {
-            const eventId = res.data.eventID
-            this.setState({eventId, currentEvent})
+            const eventID = res.data.eventID
+            this.setState({eventID, currentEvent})
             return console.log(res.data.result)
         })
         .catch((err) => {
@@ -82,27 +92,29 @@ class CurrentEvent extends Component {
         })
     }
 
-    addQuestion = () => {
-        let questions = this.state.questions;
-        questions.push({
-            question: `Question to set?`,
-            choiceA: '',
-            choiceB: '',
-            choiceC: '',
-            usersA: '',
-            usersB: '',
-            usersC: '',
-            timeToSet: ''
+    editQuestion = (question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput) => {
+        console.log('editQuestion')
+        let questionObj = question;
+        questionObj.question = questionInput;
+        questionObj.choiceA = choiceAInput;
+        questionObj.choiceB = choiceBInput;
+        questionObj.choiceC = choiceCInput;
+        questionObj.timeToSet = timeToSetInput;
+        const eventID = this.state.eventID;
+        const questionId = question.id;
+        const updateQuestionObj = {questionObj, eventID, questionId}
+        axios.post(editQuestionUrl, updateQuestionObj)
+        .then((res) => {
+            console.log(res)
+            return console.log(res)
         })
-       this.setState({questions})
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
-    editQuestion = (question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput) => {
-        question.question = questionInput
-        question.choiceA = choiceAInput
-        question.choiceB = choiceBInput
-        question.choiceC = choiceCInput
-        question.timeToSet = timeToSetInput
+    updateTime = (time) => {
+            this.setState({time});
     }
 }
 

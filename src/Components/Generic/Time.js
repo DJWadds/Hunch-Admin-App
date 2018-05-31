@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 
 class Time extends Component {
-    componentDidMount () {
+    componentDidMount() {
         setInterval(() => {
             this.currentTime();
         }, 1000);
     }
     state = {
-        time: new Date
-    }
+        time: new Date()
+    };
     render() {
     const {time} = this.state;
-    const {} = this;
-    const {} = this.props
     return (
         <section id="time">
             {time.toLocaleTimeString()}
@@ -21,7 +19,8 @@ class Time extends Component {
     }
 
     currentTime = () => {
-        this.setState({time : new Date})
+        this.props.updateTime(this.state.time);
+        this.setState({time : new Date()})
     }
 }
 
