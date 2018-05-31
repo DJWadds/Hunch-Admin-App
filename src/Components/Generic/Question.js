@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class Question extends Component {
     componentDidMount () {
+        
     }
     state = {
         
@@ -9,11 +10,14 @@ class Question extends Component {
     render() {
     const {question, i} = this.props
     return (<div className="question" key={i}>
-        <div> Question {i + 1}: {question.question} </div>
-        <div> Choices: </div>
-        <div className="choices">{question.choices.map((choice, i) => {
-            return <div className="choice" key={i}> {choice} </div>        
-        })} </div>
+        <h3>Question {i + 1} </h3>
+        <div> {question.question} </div>
+        <h3> Choices </h3>
+        <div className="choices">
+            <div className="choice"> {question.choiceA} </div>
+            <div className="choice"> {question.choiceB} </div>   
+            <div className="choice"> {question.choiceC} </div>
+        </div>
         <div> Time: {question.timeToSet} </div>
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Edit</button>
 

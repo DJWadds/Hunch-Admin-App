@@ -11,13 +11,13 @@ class Questions extends Component {
         questions: []
     };
     render() {
-    const {addQuestion} = this.props
+    // const {addQuestion} = this.props
     const {questions} = this.state
     // console.log(questions)
     return (
         <section id="questions-section">
-            <h3> Questions </h3>
-            <button type="button" className="btn btn-danger" onClick={addQuestion}>Add Question</button>
+            <h2> Questions </h2>
+            {/* <button type="button" className="btn btn-danger" onClick={addQuestion}>Add Question</button> */}
             <div id="setQuestions">
                 {questions.map((question, i) => <Question question={question} i={i} key={i}/>)}
             </div>
@@ -33,7 +33,6 @@ class Questions extends Component {
         const questions = [];
         for (let i = 1; i <= numberOfQuestions; i++) {
             questions.push(currentEvent[i])
-            console.log(currentEvent[i])
         }
         this.setState({questions})
     }
