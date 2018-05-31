@@ -15,7 +15,7 @@ class CurrentEvent extends Component {
         const id = this.props.match.params.id;
         let event = getEvenById(id);
         event = event[0];
-        const currentEvent = {event}
+        const currentEvent = event
         this.setState({currentEvent});
     }
     state = {
@@ -29,14 +29,21 @@ class CurrentEvent extends Component {
 
     const {currentEvent, time} = this.state;
     const {editQuestion, setupEvent, updateTime} = this;
-    let clockTime = time.toLocaleTimeString();
-    for (let i = 1; i <= currentEvent.event.questions; i++) {
-        if (currentEvent[i].timeToSet === clockTime) {
-            console.log(currentEvent[i]);
+
+    const currentHour = time.getHours();
+    const currentMinute = time.getMinutes();
+    const currentSecond = time.getSeconds();
+
+    for (let i = 1; i <= currentEvent.questions; i++) {
+        
+        const eventHours = currentEvent[i].timeToSet.getHours();
+        const eventMinute = currentEvent[i].timeToSet.getMinutes();
+        const eventSecond = currentEvent[i].timeToSet.getSeconds();
+        if (eventHours === currentHour && 
+            eventMinute === currentMinute &&
+            eventSecond === currentSecond) {
+            console.log(currentEvent[1])
         }
-    }
-    if (time.toLocaleTimeString() === '14:24:30') {
-        console.log('yessss');
     }
     return (
         <section id="current-event">
@@ -64,7 +71,9 @@ class CurrentEvent extends Component {
 
     setupEvent = () => {
         let currentEvent = this.state.currentEvent
-        currentEvent.event.questions = 6
+        currentEvent.questions = 6
+        currentEvent.date = Date.parse(currentEvent.date)
+
         for (let i = 1; i <= 6; i++) {
             currentEvent[i] = {
                 id: i,
@@ -75,16 +84,18 @@ class CurrentEvent extends Component {
                 usersA: [],
                 usersB: [],
                 usersC: [],
-                timeToSet: currentEvent.event.date.slice(11),
+                timeToSet: new Date('June 01, 2018 00:00:01'),
                 closed: false
                 }
         }
-        console.log(currentEvent)
-        this.setState({setupDone : !this.state.setupDone})
+        
         axios.post(addNewEventUrlTest, {currentEvent})
         .then((res) => {
             const eventID = res.data.eventID
-            this.setState({eventID, currentEvent})
+            this.setState({
+                            eventID, currentEvent,
+                            setupDone : !this.state.setupDone
+                        })
             return console.log(res.data.result)
         })
         .catch((err) => {
@@ -93,20 +104,21 @@ class CurrentEvent extends Component {
     }
 
     editQuestion = (question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput) => {
-        console.log('editQuestion')
-        let questionObj = question;
+        let questionObj = {...question};
         questionObj.question = questionInput;
         questionObj.choiceA = choiceAInput;
         questionObj.choiceB = choiceBInput;
         questionObj.choiceC = choiceCInput;
-        questionObj.timeToSet = timeToSetInput;
+        questionObj.timeToSet = new Date(`June 01, 2018 ${timeToSetInput}`);
         const eventID = this.state.eventID;
         const questionId = question.id;
         const updateQuestionObj = {questionObj, eventID, questionId}
         axios.post(editQuestionUrl, updateQuestionObj)
         .then((res) => {
-            console.log(res)
-            return console.log(res)
+            let  currentEvent = this.state.currentEvent;
+            currentEvent[questionId] = questionObj;
+            this.setState({currentEvent});
+            return console.log(res);
         })
         .catch((err) => {
             console.log(err);
