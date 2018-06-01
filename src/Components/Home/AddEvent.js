@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 
 class AddEvent extends Component {
-    componentDidMount () {
-    }
     state = {
         eventName: '',
         eventType: '',
         eventDate: '',
-        eventImgUrl: ''
+        eventImgUrl: '',
+        description: ''
     }
     render() {
-    const {eventName, eventType, eventDate, eventImgUrl} = this.state;
+    const {eventName, eventType, eventDate, eventImgUrl, description} = this.state;
     const {addEvent} = this.props;
-    const {updateEventName, updateEventType, updateEventDate, updateEventImgUrl} = this;
+    const {updateEventName, updateEventType, updateEventDate, updateEventImgUrl, updateEventDescription} = this;
     return (<section id="addEvent">
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Add New Event</button>
 
@@ -24,6 +23,10 @@ class AddEvent extends Component {
                             <div className="form-group">
                                 <label htmlFor="event-name" className="col-form-label">Event Name:</label>
                                 <input type="text" className="form-control" id="event-name" onChange={updateEventName}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="event-description" className="col-form-label">Event Description:</label>
+                                <input type="text" className="form-control" id="event-name" onChange={updateEventDescription}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="event-type" className="col-form-label">Event type:</label>
@@ -43,13 +46,14 @@ class AddEvent extends Component {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" onClick={() => addEvent(eventName, eventType, eventDate, eventImgUrl)}>Add Event</button>
+                        <button type="button" className="btn btn-primary" onClick={() => addEvent(eventName, eventType, eventDate, eventImgUrl, description)}>Add Event</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>)
     }
+    
     updateEventName = (event) => {
         this.setState({eventName : event.target.value})
     }
@@ -64,6 +68,10 @@ class AddEvent extends Component {
 
     updateEventImgUrl = (event) => {
         this.setState({eventImgUrl : event.target.value})
+    }
+
+    updateEventDescription = (event) => {
+        this.setState({description : event.target.value})
     }
 
 }
