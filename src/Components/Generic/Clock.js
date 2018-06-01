@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Time extends Component {
+class Clock extends Component {
     componentDidMount() {
         setInterval(() => {
             this.currentTime();
@@ -19,9 +19,9 @@ class Time extends Component {
     }
 
     currentTime = () => {
-        this.props.updateTime(this.state.time);
+        this.props.updateClock(this.state.time);
         this.setState({time : new Date()})
     }
 }
 
-export default Time;
+export default Clock;

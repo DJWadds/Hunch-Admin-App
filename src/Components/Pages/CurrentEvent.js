@@ -4,7 +4,7 @@ import axios from 'axios';
 import {addNewEventUrlTest, /*addNewEventUrlProject,*/ editQuestionUrl} from '../../config/index';
 import '../../css/LiveEvent.css';
 
-import Time from '../Generic/Time';
+import Clock from '../Generic/Clock';
 import EventInformation from '../currentEvent/EventInformation';
 import Questions from '../currentEvent/Questions';
 import EventTracker from '../currentEvent/EventTracker';
@@ -19,7 +19,7 @@ class CurrentEvent extends Component {
         this.setState({currentEvent});
     }
     state = {
-        time: new Date(),
+        clock: new Date(),
         eventID: null,
         currentEvent: {event: {questions: 0}},
         setupDone: false
@@ -27,12 +27,12 @@ class CurrentEvent extends Component {
     render() {
     if (!this.props.admin) return null;
 
-    const {currentEvent, time} = this.state;
-    const {editQuestion, setupEvent, updateTime} = this;
+    const {currentEvent, clock} = this.state;
+    const {editQuestion, setupEvent, updateClock} = this;
 
-    const currentHour = time.getHours();
-    const currentMinute = time.getMinutes();
-    const currentSecond = time.getSeconds();
+    const currentHour = clock.getHours();
+    const currentMinute = clock.getMinutes();
+    const currentSecond = clock.getSeconds();
 
     for (let i = 1; i <= currentEvent.questions; i++) {
         
@@ -53,7 +53,7 @@ class CurrentEvent extends Component {
                     <button type="button" className="btn btn-primary">Primary</button>
                     <button type="button" className="btn btn-primary">Primary</button>
                 </div>
-                <Time updateTime={updateTime}/>
+                <Clock updateClock={updateClock}/>
             </div>
             <div id="active-event-content">
                 <div id="active-event-content-left">
@@ -125,7 +125,7 @@ class CurrentEvent extends Component {
         })
     }
 
-    updateTime = (time) => {
+    updateClock = (time) => {
             this.setState({time});
     }
 }
