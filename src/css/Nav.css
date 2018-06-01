@@ -1,0 +1,13 @@
+#nav {
+    width: 98vw;
+    height: 5vh;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    margin: 5px 10px;
+}
+
+#nav button {
+    width: 95%;
+    display: block;
+    margin: auto;
+}

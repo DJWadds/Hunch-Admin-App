@@ -12,7 +12,7 @@ class AddEvent extends Component {
     const {eventName, eventType, eventDate, eventImgUrl, description} = this.state;
     const {addEvent} = this.props;
     const {updateEventName, updateEventType, updateEventDate, updateEventImgUrl, updateEventDescription} = this;
-    return (<section id="addEvent">
+    return (<section id="all-events-add-event">
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Add New Event</button>
 
         <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,14 +46,14 @@ class AddEvent extends Component {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" onClick={() => addEvent(eventName, eventType, eventDate, eventImgUrl, description)}>Add Event</button>
+                        <button type="button" className="btn btn-primary" onClick={() => addEvent(eventName, eventType, eventDate, eventImgUrl, description)} data-dismiss="modal">Add Event</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>)
     }
-    
+
     updateEventName = (event) => {
         this.setState({eventName : event.target.value})
     }
