@@ -25,7 +25,7 @@ class Question extends Component {
             <div className="choice"> {question.choiceB} </div>   
             <div className="choice"> {question.choiceC} </div>
         </div>
-        <div className="question-time"> Time: {question.timeToSet} </div>
+        <div className="question-time"> Time: {question.timeToSet.toLocaleTimeString()} </div>
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${i}`} data-whatever="@fat">Edit</button>
 
 
@@ -60,7 +60,7 @@ class Question extends Component {
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" className="btn btn-primary" onClick={() => editQuestion(question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput)}>Change</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => editQuestion(question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput)}>Change</button>
                 </div>
             </div>
         </div>

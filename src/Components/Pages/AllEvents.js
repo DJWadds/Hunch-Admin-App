@@ -8,7 +8,7 @@ import AddEvent from '../Home/AddEvent';
 import CloseEvents from '../Home/CloseEvents';
 import Event from '../Generic/Event';
 
-class Home extends Component {
+class AllEvents extends Component {
     componentDidMount() {
         let events = eventList();
         const liveEvent = events.filter(event => event.live === true);
@@ -83,4 +83,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default AllEvents;

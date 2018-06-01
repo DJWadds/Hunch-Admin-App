@@ -17,7 +17,6 @@ class Questions extends Component {
     return (
         <section id="questions-section">
             <h2> Questions </h2>
-            {/* <button type="button" className="btn btn-danger" onClick={addQuestion}>Add Question</button> */}
             <div id="setQuestions">
                 {questions.map((question, i) => <Question question={question} i={i} key={i} editQuestion={editQuestion}/>)}
             </div>
@@ -29,7 +28,7 @@ class Questions extends Component {
     setQuestionsArray = () => {
         const currentEvent = this.props.currentEvent
         if (currentEvent === null) return null;
-        const numberOfQuestions = currentEvent.event.questions;
+        const numberOfQuestions = currentEvent.questions;
         const questions = [];
         for (let i = 1; i <= numberOfQuestions; i++) {
             questions.push(currentEvent[i])

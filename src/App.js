@@ -5,7 +5,7 @@ import './App.css';
 
 import Login from './Components/Pages/Login';
 import Nav from './Components/Generic/Nav';
-import Home from './Components/Pages/Home';
+import AllEvents from './Components/Pages/AllEvents';
 import CurrentEvent from './Components/Pages/CurrentEvent';
 
 
@@ -25,7 +25,7 @@ class App extends Component {
         <Switch>
             <Route path="/login" render={(props) => <Login {...props} login={login}/>}/>
             <Route path="/event/:id" render={(props) => <CurrentEvent {...props} admin={admin}/>}/>  
-            <Route exact path="/allEvents" render={() => <Home admin={admin}/>}/>
+            <Route exact path="/allEvents" render={() => <AllEvents admin={admin}/>}/>
         </Switch>
       </div>
     </Router>
