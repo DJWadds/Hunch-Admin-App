@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 
 class AddEvent extends Component {
-    componentDidMount () {
-    }
     state = {
         eventName: '',
         eventType: '',
         eventDate: '',
-        eventImgUrl: ''
+        eventImgUrl: '',
+        description: ''
     }
     render() {
-    const {eventName, eventType, eventDate, eventImgUrl} = this.state;
+    const {eventName, eventType, eventDate, eventImgUrl, description} = this.state;
     const {addEvent} = this.props;
-    const {updateEventName, updateEventType, updateEventDate, updateEventImgUrl} = this;
-    return (<section id="addEvent">
+    const {updateEventName, updateEventType, updateEventDate, updateEventImgUrl, updateEventDescription} = this;
+    return (<section id="all-events-add-event">
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Add New Event</button>
 
         <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -24,6 +23,10 @@ class AddEvent extends Component {
                             <div className="form-group">
                                 <label htmlFor="event-name" className="col-form-label">Event Name:</label>
                                 <input type="text" className="form-control" id="event-name" onChange={updateEventName}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="event-description" className="col-form-label">Event Description:</label>
+                                <input type="text" className="form-control" id="event-name" onChange={updateEventDescription}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="event-type" className="col-form-label">Event type:</label>
@@ -43,13 +46,14 @@ class AddEvent extends Component {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" onClick={() => addEvent(eventName, eventType, eventDate, eventImgUrl)}>Add Event</button>
+                        <button type="button" className="btn btn-primary" onClick={() => addEvent(eventName, eventType, eventDate, eventImgUrl, description)} data-dismiss="modal">Add Event</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>)
     }
+
     updateEventName = (event) => {
         this.setState({eventName : event.target.value})
     }
@@ -64,6 +68,10 @@ class AddEvent extends Component {
 
     updateEventImgUrl = (event) => {
         this.setState({eventImgUrl : event.target.value})
+    }
+
+    updateEventDescription = (event) => {
+        this.setState({description : event.target.value})
     }
 
 }

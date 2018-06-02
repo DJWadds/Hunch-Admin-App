@@ -69,40 +69,6 @@ class CurrentEvent extends Component {
     );
     }
 
-    setupEvent = () => {
-        let currentEvent = this.state.currentEvent
-        currentEvent.questions = 6
-        currentEvent.date = Date.parse(currentEvent.date)
-
-        for (let i = 1; i <= 6; i++) {
-            currentEvent[i] = {
-                id: i,
-                question: `Input question here`,
-                choiceA: 'Input choice A here',
-                choiceB: 'Input choice B here',
-                choiceC: 'Input choice C here',
-                usersA: [],
-                usersB: [],
-                usersC: [],
-                timeToSet: new Date('June 01, 2018 00:00:01'),
-                closed: false
-                }
-        }
-        
-        axios.post(addNewEventUrlTest, {currentEvent})
-        .then((res) => {
-            const eventID = res.data.eventID
-            this.setState({
-                            eventID, currentEvent,
-                            setupDone : !this.state.setupDone
-                        })
-            return console.log(res.data.result)
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }
-
     editQuestion = (question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput) => {
         let questionObj = {...question};
         questionObj.question = questionInput;

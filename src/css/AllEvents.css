@@ -1,0 +1,37 @@
+#all-events {
+    width: 98vw;
+    display: grid;
+    margin: 0 10px 5px;
+}
+
+#all-events-head {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+#all-events-head-no-current-event {
+    display: block;
+    text-align: center;
+    margin: auto;
+}
+
+#all-events-head-coming-soon {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+}
+
+#all-events-head-coming-soon h2 {
+    text-align: center;
+}
+
+#all-events-all {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+}

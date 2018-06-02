@@ -16,10 +16,7 @@
     margin-bottom: 10px;
 }
 
-.eventButtons {
-    width: 50%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
-    margin: 5px auto;
+.event-buttons button {
+    width: 30%;
+    margin: 5px;
 }
