@@ -42,7 +42,7 @@ export function makeEventLiveInDatabase (event) {
             };
     }
     console.log(currentEvent)
-    return axios.post(makeCurrentEventLiveURL, {currentEvent})
+    return axios.post('https://us-central1-test-database-92434.cloudfunctions.net/createCurrentEvent', currentEvent)
     .then((res) => {
         console.log(res.data)
         // return {currentEventId, currentEvent}

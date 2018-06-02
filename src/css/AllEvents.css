@@ -30,6 +30,11 @@
     text-align: center;
 }
 
+#all-events-add-event {
+    display: block;
+    margin: 5px auto 15px;
+}
+
 #all-events-all {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

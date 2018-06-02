@@ -9,6 +9,7 @@ import {authenticateAdmin} from './external/login';
 import Login from './Pages/Login';
 import AllEvents from './Pages/AllEvents';
 import Nav from './Pages/Nav';
+import CurrentEvent from './Pages/CurrentEvent';
 
 class App extends Component {
     componentDidMount () {
@@ -18,12 +19,13 @@ class App extends Component {
       admin: true,
       events: [],
       currentEvent: {},
-      currentEventID: '',
-      liveEvent: false
+      currentEventID: 'sad',
+      liveEvent: false,
+      notes: [1, 2, 3]
     };
     render() {
-      const {admin, events, currentEvent, currentEventID, liveEvent} = this.state;
-      const {addEvent, makeEventLive} = this;
+      const {admin, events, currentEvent, currentEventID, liveEvent, notes} = this.state;
+      const {addEvent, makeEventLive, addEventNote} = this;
       console.log(events);
     return (<Router>
       <div id="app">
@@ -31,7 +33,7 @@ class App extends Component {
           <Nav />
           : <Login login={this.login} />}
         <Switch>
-            {/* <Route path="/events/currentEvent/:id" render={(props) => <CurrentEvent {...props} admin={admin}/>}/>   */}
+            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} notes={notes} currentEventID={currentEventID} currentEvent={currentEvent} addEventNote={addEventNote}/>}/>
             <Route exact path="/events/all" render={() => <AllEvents admin={admin} events={events} currentEvent={currentEvent} 
                   currentEventID={currentEventID} liveEvent={liveEvent} addEvent={addEvent} makeEventLive={makeEventLive}/>} />
         </Switch>
@@ -76,6 +78,12 @@ class App extends Component {
 
     makeEventLive = (event, index) => {
       makeEventLiveInDatabase(event)
+    }
+
+    addEventNote = (note) => {
+      const notes = this.state.notes;
+      notes.push(note);
+      this.setState({notes})
     }
 }
 
