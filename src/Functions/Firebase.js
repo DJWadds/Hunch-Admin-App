@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {getAllEventsURL, postNewEventURL} from '../config/index';
+import {getAllEventsURL, postNewEventURL, makeCurrentEventLiveURL} from '../config/index';
 
 export function getAllEventsFromDatabase () {
     return axios.get(getAllEventsURL)
@@ -23,10 +23,9 @@ export function addEventToDatabase (event, eventName) {
     })
 }
 
-export function makeEventLive (event, index) {
+export function makeEventLiveInDatabase (event) {
     let currentEvent = {...event}
     currentEvent.questions = 6
-    currentEvent.date = Date.parse(currentEvent.date)
 
     for (let i = 1; i <= 6; i++) {
         currentEvent[i] = {
@@ -40,16 +39,13 @@ export function makeEventLive (event, index) {
             usersC: [],
             timeToSet: new Date('June 01, 2018 00:00:01'),
             closed: false
-            }
+            };
     }
-    axios.post(makeCurrentEventLive, {currentEvent})
+    console.log(currentEvent)
+    return axios.post(makeCurrentEventLiveURL, {currentEvent})
     .then((res) => {
-        console.log(res)
-        const currentEventId = res.data.eventID
-        console.log(currentEventId)
-        console.log(currentEvent)
-        this.setState({currentEventId, currentEvent})
-        return console.log(res.data.result)
+        console.log(res.data)
+        // return {currentEventId, currentEvent}
     })
     .catch((err) => {
         console.log(err);

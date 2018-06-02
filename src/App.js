@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './css/App.css'
 
 import {reduceToEventArray} from './Functions/index';
-import {getAllEventsFromDatabase, addEventToDatabase} from './Functions/Firebase';
+import {getAllEventsFromDatabase, addEventToDatabase, makeEventLiveInDatabase} from './Functions/Firebase';
 import {authenticateAdmin} from './external/login';
 
 import Login from './Pages/Login';
@@ -74,8 +74,8 @@ class App extends Component {
       })
     }
 
-    makeEventLive = (event) => {
-      console.log(event)
+    makeEventLive = (event, index) => {
+      makeEventLiveInDatabase(event)
     }
 }
 

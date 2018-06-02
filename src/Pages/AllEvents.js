@@ -3,6 +3,7 @@ import '../css/AllEvents.css';
 
 import AddEvent from '../Components/Generic/AddEvent';
 import Event from '../Components/Generic/Event';
+import AllEventsCurrentEvent from '../Components/Generic/AllEventsCurrentEvent';
 
 class AllEvents extends Component {
 
@@ -12,7 +13,7 @@ class AllEvents extends Component {
     {events.length > 0 ?
     <div id="all-events-head">
         {currentEventID.length > 0 ? <div id="all-events-head-current-event">
-            <Event event={currentEvent} key={`${currentEvent.name}`} liveEvent={liveEvent}/>
+            <AllEventsCurrentEvent currentEvent={currentEvent} currentEventID={currentEventID} />
         </div>
         : <h2 id="all-events-head-no-current-event"> No Current Event </h2> }
         <div id="all-events-head-coming-soon">
