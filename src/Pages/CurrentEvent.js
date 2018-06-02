@@ -8,13 +8,13 @@ import Graphs from '../Components/CurrentEvent/Graphs';
 
 class CurrentEvent extends Component {
     render() {
-    const {currentEventID, notes, addEventNote} = this.props
+    const {currentEventID, currentEvent, notes, addEventNote} = this.props
     if (currentEventID.length < 1) return <div> No Current Event </div>
     return (
         <section id="current-event">
             <div id="current-event-left">
                 <Information />
-                <Questions />
+                <Questions currentEvent={currentEvent}/>
             </div>
             <div id="current-event-right">
                 <Notes notes={notes} addEventNote={addEventNote}/>

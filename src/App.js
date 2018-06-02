@@ -19,14 +19,14 @@ class App extends Component {
       admin: true,
       events: [],
       currentEvent: {},
-      currentEventID: 'sad',
+      currentEventID: '',
       liveEvent: false,
       notes: [1, 2, 3]
     };
     render() {
       const {admin, events, currentEvent, currentEventID, liveEvent, notes} = this.state;
       const {addEvent, makeEventLive, addEventNote} = this;
-      console.log(events);
+      console.log(currentEvent)
     return (<Router>
       <div id="app">
         {admin ?  
@@ -77,7 +77,26 @@ class App extends Component {
     }
 
     makeEventLive = (event, index) => {
-      makeEventLiveInDatabase(event)
+      // makeEventLiveInDatabase(event)
+      let currentEvent = {...event}
+      currentEvent.questions = 6
+
+      for (let i = 1; i <= 6; i++) {
+          currentEvent[i] = {
+              id: i,
+              question: `Input question here`,
+              choiceA: 'Input choice A here',
+              choiceB: 'Input choice B here',
+              choiceC: 'Input choice C here',
+              usersA: [],
+              usersB: [],
+              usersC: [],
+              timeToSet: new Date('June 01, 2018 00:00:01'),
+              closed: false
+              };
+      }
+      const currentEventID = 'sdad'
+      this.setState({currentEvent, currentEventID})
     }
 
     addEventNote = (note) => {

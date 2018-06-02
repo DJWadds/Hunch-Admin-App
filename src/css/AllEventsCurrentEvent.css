@@ -1,0 +1,27 @@
+#all-events-current-event {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+    border: 1px solid black;
+}
+
+#all-events-current-event-img {
+    padding: 10px;
+}
+
+#all-events-current-event-information {
+    padding: 10px;
+}
+
+#all-events-current-event-information h2 {
+    text-align: center;
+}
+
+#all-events-current-event-information div {
+    padding: 2px;
+}
+
+#all-events-current-event-information button {
+    display: block;
+    margin: 5px auto 0;
+}
