@@ -18,10 +18,92 @@ class App extends Component {
     state = {
       admin: true,
       events: [],
-      currentEvent: {},
-      currentEventID: '',
+      currentEvent: {
+        complete: false,
+        date: "2018/06/28 18:00:00",
+        description: "Football match in Russia",
+        img: "https://placeimg.com/640/480/animals",
+        live: false,
+        name: "Engalnd v Someone",
+        questions: 6,
+        start: false,
+        type: "Football",
+        1: {
+          id: 1,
+          question: `Input question here`,
+          choiceA: 'Input choice A here',
+          choiceB: 'Input choice B here',
+          choiceC: 'Input choice C here',
+          usersA: [],
+          usersB: [],
+          usersC: [],
+          timeToSet: new Date('June 01, 2018 00:00:01'),
+          closed: false,
+        },
+        2: {
+          id: 2,
+          question: `Input question here`,
+          choiceA: 'Input choice A here',
+          choiceB: 'Input choice B here',
+          choiceC: 'Input choice C here',
+          usersA: [],
+          usersB: [],
+          usersC: [],
+          timeToSet: new Date('June 01, 2018 00:00:01'),
+          closed: false
+        },
+        3: { 
+          id: 3,
+          question: `Input question here`,
+          choiceA: 'Input choice A here',
+          choiceB: 'Input choice B here',
+          choiceC: 'Input choice C here',
+          usersA: [],
+          usersB: [],
+          usersC: [],
+          timeToSet: new Date('June 01, 2018 00:00:01'),
+          closed: false
+        },
+        4: {
+          id: 4,
+          question: `Input question here`,
+          choiceA: 'Input choice A here',
+          choiceB: 'Input choice B here',
+          choiceC: 'Input choice C here',
+          usersA: [],
+          usersB: [],
+          usersC: [],
+          timeToSet: new Date('June 01, 2018 00:00:01'),
+          closed: false
+        },
+        5: {
+          id: 5,
+          question: `Input question here`,
+          choiceA: 'Input choice A here',
+          choiceB: 'Input choice B here',
+          choiceC: 'Input choice C here',
+          usersA: [],
+          usersB: [],
+          usersC: [],
+          timeToSet: new Date('June 01, 2018 00:00:01'),
+          closed: false
+        },
+        6: {
+          id: 6,
+          question: `Input question here`,
+          choiceA: 'Input choice A here',
+          choiceB: 'Input choice B here',
+          choiceC: 'Input choice C here',
+          usersA: [],
+          usersB: [],
+          usersC: [],
+          timeToSet: new Date('June 01, 2018 00:00:01'),
+          closed: false
+        }
+      },
+      currentEventID: 'sd',
       liveEvent: false,
-      notes: [1, 2, 3]
+      notes: []
     };
     render() {
       const {admin, events, currentEvent, currentEventID, liveEvent, notes} = this.state;

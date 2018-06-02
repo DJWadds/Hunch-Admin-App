@@ -15,14 +15,10 @@
     margin: 5px 0;
 }
 
-#current-event-questions {
-    height: 70vh;
-}
-
 #current-event-graphs {
     height: 43vh;
 }
 
-#current-event-information, #current-event-questions, #current-event-graphs {
+#current-event-information, #current-event-graphs {
     border: 1px solid black;
 }

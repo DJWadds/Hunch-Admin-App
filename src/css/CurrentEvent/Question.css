@@ -1,0 +1,26 @@
+.current-event-questions-question {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.current-event-questions-question h3 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.current-event-questions-question-choices-choice {
+    width: 50%;
+    text-align: center;
+    background-color: lightgray;
+    border-radius: 5px;
+    margin: 5px auto;
+}
+
+.current-event-questions-question-time {
+    padding: 5px 0;
+}
+
+.current-event-questions-question button {
+    display: block;
+    margin: 0 auto 5px;
+}
