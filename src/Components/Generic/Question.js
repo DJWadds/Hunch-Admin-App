@@ -27,7 +27,7 @@ class Question extends Component {
             <div className="current-event-questions-question-choices-choice"> {question.choiceC} </div>
         </div>
         <div className="current-event-questions-question-time"> Time: {question.timeToSet.toLocaleTimeString().slice(0,5)} (24hr) </div>
-        <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}`} data-whatever="@fat">Edit</button>
+        {question.closed ? null : <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}`} data-whatever="@fat">Edit</button>}
 
 
         <div className="modal fade" id={`question${question.id}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
