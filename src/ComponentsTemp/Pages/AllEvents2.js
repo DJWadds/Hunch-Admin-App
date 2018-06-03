@@ -70,15 +70,13 @@ class AllEvents extends Component {
         .then((res) => {
             const eventID = res.data.eventID;
             const events = this.state.events;
-            console.log(eventID)
             Oevent.id = eventID
-            console.log(Oevent)
+
             events.push(Oevent)
             this.setState({events})
-            return console.log(res.data.result)
+            return null
         })
         .catch((err) => {
-            console.log(err);
         })
     }
 }

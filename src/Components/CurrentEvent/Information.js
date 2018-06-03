@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 
+import Clock from '../Generic/Clock';
+
 class Information extends Component {
     render() {
+        const {updateClock} = this.props;
     return (
         <section id="current-event-information">
-            <h1> Information </h1>
+            <Clock updateClock={updateClock}/>
         </section>
     );
     }

@@ -15,7 +15,7 @@ class Question extends Component {
     }
     render() {
     const {questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput} = this.state;
-    const {question, editQuestion} = this.props
+    const {question, updateQuestion} = this.props
     const {updateQuestionInput, updateChoiceA, updateChoiceB, updateChoiceC, updateTimeToSet} = this;
     return (<div className="current-event-questions-question">
         <h3>Question {question.id} </h3>
@@ -26,11 +26,11 @@ class Question extends Component {
             <div className="current-event-questions-question-choices-choice"> {question.choiceB} </div>   
             <div className="current-event-questions-question-choices-choice"> {question.choiceC} </div>
         </div>
-        <div className="current-event-questions-question-time"> Time: {question.timeToSet.toLocaleTimeString()} </div>
+        <div className="current-event-questions-question-time"> Time: {question.timeToSet.toLocaleTimeString().slice(0,5)} (24hr) </div>
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}`} data-whatever="@fat">Edit</button>
 
 
-        <div className="modal fade" id={`{question${question.id}}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id={`question${question.id}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
             <div className="modal-content">
                 <div className="modal-body">
@@ -55,13 +55,13 @@ class Question extends Component {
                         <div className="form-group">
                             <label htmlFor="question-time" className="col-form-label">Question Time:</label>
                             <input type="text" className="form-control" id="event-date" onChange={updateTimeToSet}/>
-                            <small id="emailHelp" className="form-text text-muted">Form: hh:mm:ss</small>
+                            <small id="emailHelp" className="form-text text-muted">Form: hh:mm</small>
                         </div>
                     </form>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => editQuestion(question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput)}>Change</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => updateQuestion(question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput)}>Change</button>
                 </div>
             </div>
         </div>

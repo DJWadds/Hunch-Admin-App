@@ -27,79 +27,7 @@ class App extends Component {
         name: "Engalnd v Someone",
         questions: 6,
         start: false,
-        type: "Football",
-        1: {
-          id: 1,
-          question: `Input question here`,
-          choiceA: 'Input choice A here',
-          choiceB: 'Input choice B here',
-          choiceC: 'Input choice C here',
-          usersA: [],
-          usersB: [],
-          usersC: [],
-          timeToSet: new Date('June 01, 2018 00:00:01'),
-          closed: false,
-        },
-        2: {
-          id: 2,
-          question: `Input question here`,
-          choiceA: 'Input choice A here',
-          choiceB: 'Input choice B here',
-          choiceC: 'Input choice C here',
-          usersA: [],
-          usersB: [],
-          usersC: [],
-          timeToSet: new Date('June 01, 2018 00:00:01'),
-          closed: false
-        },
-        3: { 
-          id: 3,
-          question: `Input question here`,
-          choiceA: 'Input choice A here',
-          choiceB: 'Input choice B here',
-          choiceC: 'Input choice C here',
-          usersA: [],
-          usersB: [],
-          usersC: [],
-          timeToSet: new Date('June 01, 2018 00:00:01'),
-          closed: false
-        },
-        4: {
-          id: 4,
-          question: `Input question here`,
-          choiceA: 'Input choice A here',
-          choiceB: 'Input choice B here',
-          choiceC: 'Input choice C here',
-          usersA: [],
-          usersB: [],
-          usersC: [],
-          timeToSet: new Date('June 01, 2018 00:00:01'),
-          closed: false
-        },
-        5: {
-          id: 5,
-          question: `Input question here`,
-          choiceA: 'Input choice A here',
-          choiceB: 'Input choice B here',
-          choiceC: 'Input choice C here',
-          usersA: [],
-          usersB: [],
-          usersC: [],
-          timeToSet: new Date('June 01, 2018 00:00:01'),
-          closed: false
-        },
-        6: {
-          id: 6,
-          question: `Input question here`,
-          choiceA: 'Input choice A here',
-          choiceB: 'Input choice B here',
-          choiceC: 'Input choice C here',
-          usersA: [],
-          usersB: [],
-          usersC: [],
-          timeToSet: new Date('June 01, 2018 00:00:01'),
-          closed: false
-        }
+        type: "Football"
       },
       currentEventID: 'sd',
       liveEvent: false,
@@ -107,15 +35,14 @@ class App extends Component {
     };
     render() {
       const {admin, events, currentEvent, currentEventID, liveEvent, notes} = this.state;
-      const {addEvent, makeEventLive, addEventNote} = this;
-      console.log(currentEvent)
+      const {addEvent, makeEventLive, addEventNote, editQuestion} = this;
     return (<Router>
       <div id="app">
         {admin ?  
           <Nav />
           : <Login login={this.login} />}
         <Switch>
-            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} notes={notes} currentEventID={currentEventID} currentEvent={currentEvent} addEventNote={addEventNote}/>}/>
+            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} notes={notes} currentEventID={currentEventID} addEventNote={addEventNote} editQuestion={editQuestion}/>}/>
             <Route exact path="/events/all" render={() => <AllEvents admin={admin} events={events} currentEvent={currentEvent} 
                   currentEventID={currentEventID} liveEvent={liveEvent} addEvent={addEvent} makeEventLive={makeEventLive}/>} />
         </Switch>
@@ -135,9 +62,7 @@ class App extends Component {
       const authentication = authenticateAdmin(email, password)
       if (authentication === true) {
         this.setState({admin : true})
-      } else {
-        console.log(authentication)
-      }
+      } 
     }
 
     addEvent = (eventName, eventType, eventDate, eventImgUrl, description) => {
@@ -153,7 +78,6 @@ class App extends Component {
       }
       return addEventToDatabase(event, eventName)
       .then(data => {
-        console.log(data)
         return null
       })
     }

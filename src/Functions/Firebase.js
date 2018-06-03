@@ -7,19 +7,18 @@ export function getAllEventsFromDatabase () {
         return res.data;
     })
     .catch((err) => {
-        console.log(err);
+        return err
     });
 };
 
 export function addEventToDatabase (event, eventName) {
     const addEvent = {eventName, event}
-    console.log(addEvent)
     return axios.post(postNewEventURL, addEvent)
     .then((res) => {
         return res.data;
     })
     .catch((err) => {
-        console.log(err);
+        return err
     })
 }
 
