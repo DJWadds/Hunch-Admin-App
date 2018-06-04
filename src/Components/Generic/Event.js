@@ -8,19 +8,20 @@ class Event extends Component {
     state = {
         date: '',
         time: ''
-    }
+    };
     render() {
-        const {event, index, liveEvent, live, makeEventLive} = this.props;
+        const {event, index, liveEvent, live, makeEventLive, deleteEvent} = this.props;
         const {date, time} = this.state;
     return (<section className="event">
         <h3> {event.name} </h3>
         <img src={`${event.img}`} alt="event" />
+        <div> {event.description} </div>
         <div> Type: {event.type} </div>
         <div> Date: {date} </div>
         <div> Time: {time} </div>
         <div className="event-buttons"> 
             <button type="button" className="btn btn-primary">Edit</button>
-            <button type="button" className="btn btn-primary">Delete</button>
+            <button type="button" className="btn btn-primary" onClick={() => deleteEvent(event)}>Delete</button>
         </div>
             {liveEvent ? null :
                 live ? <button type="button" className="btn btn-primary" onClick={() => makeEventLive(event, index)}>Make Live</button> : null}

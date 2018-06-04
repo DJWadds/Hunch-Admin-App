@@ -1,5 +1,12 @@
 import axios from 'axios';
-import {getAllEventsURL, postNewEventURL, makeCurrentEventLiveURL, updateQuestionURL} from '../config/index';
+import {
+    // AllEvents
+    getAllEventsURL, postNewEventURL, deleteEventUrl, 
+    // Current Event
+    makeCurrentEventLiveURL, updateQuestionURL
+    } from '../config/index';
+
+    // All Events
 
 export function getAllEventsFromDatabase () {
     return axios.get(getAllEventsURL)
@@ -22,6 +29,18 @@ export function addEventToDatabase (event, eventName) {
     })
 }
 
+export function deleteEventFirebase (event) {
+    const body = {eventNo: event.name}
+    console.log(body)
+    return axios.delete(deleteEventUrl, body)
+    .then((res) => {
+        return console.log(res);
+    })
+    .catch(err => err);
+}
+
+    // Current Event
+
 export function makeEventLiveInDatabase (event) {
     let currentEvent = {...event};
     currentEvent.questions = 6;
@@ -38,7 +57,6 @@ export function makeEventLiveInDatabase (event) {
             };
         currentEvent[`answers_for_Q${i}`] = {};
     }
-    console.log({currentEvent});
     return axios.post(makeCurrentEventLiveURL, {currentEvent})
     .then(res => {
         const currentEventId = res.data.eventID;
@@ -56,3 +74,4 @@ export function updateQuestion (questionObj, eventID) {
         console.log(res)
     })
 }
+

@@ -10,7 +10,8 @@
 }
 
 .event img {
-    width: 80%;
+    max-width: 250px;
+    height: 200px;
     display: block;
     margin: 0 auto;
     margin-bottom: 10px;

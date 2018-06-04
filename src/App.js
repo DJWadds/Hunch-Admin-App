@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './css/App.css'
 
 import {reduceToEventArray} from './Functions/index';
-import {getAllEventsFromDatabase, addEventToDatabase, makeEventLiveInDatabase} from './Functions/Firebase';
+import {getAllEventsFromDatabase, addEventToDatabase, makeEventLiveInDatabase, deleteEventFirebase} from './Functions/Firebase';
 import {authenticateAdmin} from './external/login';
 
 import Login from './Pages/Login';
@@ -18,6 +18,7 @@ class App extends Component {
     state = {
       admin: true,
       events: [],
+      comingSoon: [],
       currentEvent: {
         complete: false,
         date: "2018/06/28 18:00:00",
@@ -34,8 +35,8 @@ class App extends Component {
       notes: []
     };
     render() {
-      const {admin, events, currentEvent, currentEventID, liveEvent, notes} = this.state;
-      const {addEvent, makeEventLive, addEventNote, editQuestion, closeEvent} = this;
+      const {admin, events, currentEvent, currentEventID, liveEvent, notes, comingSoon} = this.state;
+      const {addEvent, makeEventLive, addEventNote, editQuestion, closeEvent, deleteEvent} = this;
     return (<Router>
       <div id="app">
         {admin ?  
@@ -44,7 +45,7 @@ class App extends Component {
         <Switch>
             <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} notes={notes} currentEventID={currentEventID} addEventNote={addEventNote} editQuestion={editQuestion} closeEvent={closeEvent}/>}/>
             <Route exact path="/events/all" render={() => <AllEvents admin={admin} events={events} currentEvent={currentEvent} 
-                  currentEventID={currentEventID} liveEvent={liveEvent} addEvent={addEvent} makeEventLive={makeEventLive}/>} />
+                  currentEventID={currentEventID} liveEvent={liveEvent} addEvent={addEvent} makeEventLive={makeEventLive} comingSoon={comingSoon} deleteEvent={deleteEvent}/>} />
         </Switch>
       </div>
     </Router>);
@@ -60,11 +61,11 @@ class App extends Component {
         const comingSoon = []
         for (let i = 0; i < 2; i++) {
           if (events.length > 0) {
-            comingSoon.push(events[i])
+            comingSoon.push(events[0])
             events.shift()
           }
         }
-        this.setState({events})
+        this.setState({comingSoon, events})
       })
     }
 
@@ -83,7 +84,24 @@ class App extends Component {
       return addEventToDatabase(event, eventName)
       .then(data => {
         const events = reduceToEventArray(data)
-        this.setState({events})
+        const comingSoon = []
+        for (let i = 0; i < 2; i++) {
+          if (events.length > 0) {
+            comingSoon.push(events[0])
+            events.shift()
+          }
+        }
+        this.setState({comingSoon, events})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
+    deleteEvent = (event) => {
+      return deleteEventFirebase(event)
+      .then(() => {
+        this.getAllEvents()
       })
       .catch(err => {
         console.log(err)
@@ -95,9 +113,16 @@ class App extends Component {
     makeEventLive = (event, index) => {
       return makeEventLiveInDatabase(event)
       .then(data => {
+        console.log(data)
         const currentEvent = data.currentEvent;
-        const currentEventID = data.currentEventID;
+        const currentEventID = data.currentEventId;
+        console.log('event', currentEvent)
+        console.log('id', currentEventID)
         this.setState({currentEvent, currentEventID})
+      })
+      .catch(err => {
+        console.log(err)
+        return null
       })
     }
 
