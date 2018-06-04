@@ -30,7 +30,7 @@ class App extends Component {
         start: false,
         type: "Football"
       },
-      currentEventID: 'sda',
+      currentEventID: 'xHssevAf4hiXSw3sXZQT',
       liveEvent: false,
       notes: []
     };

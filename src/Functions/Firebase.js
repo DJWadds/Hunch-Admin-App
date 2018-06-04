@@ -3,7 +3,7 @@ import {
     // AllEvents
     getAllEventsURL, postNewEventURL, deleteEventUrl, 
     // Current Event
-    makeCurrentEventLiveURL, updateQuestionURL
+    makeCurrentEventLiveURL, updateQuestionURL, getEventByIdURL
     } from '../config/index';
 
     // All Events
@@ -41,6 +41,17 @@ export function deleteEventFirebase (event) {
 
     // Current Event
 
+export function getEventIdDatabase (eventID) {
+    console.log(eventID)
+    return axios.get(getEventByIdURL, {eventID})
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => {
+        return err;
+    })
+}
+
 export function makeEventLiveInDatabase (event) {
     let currentEvent = {...event};
     currentEvent.questions = 6;
@@ -53,7 +64,8 @@ export function makeEventLiveInDatabase (event) {
                 ans_b: 'Input choice B here',
                 ans_c: 'Input choice C here',
                 timeToSet: setDateAndTime,
-                closed: false
+                closed: false,
+                answers_num: 3
             };
         currentEvent[`answers_for_Q${i}`] = {};
     }

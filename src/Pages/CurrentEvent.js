@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/CurrentEvent.css';
-import {updateQuestion} from '../Functions/Firebase';
+import {updateQuestion, getEventIdDatabase} from '../Functions/Firebase';
 
 import Information from '../Components/CurrentEvent/Information';
 import Questions from '../Components/CurrentEvent/Questions';
@@ -8,6 +8,9 @@ import Notes from '../Components/CurrentEvent/Notes';
 import Graphs from '../Components/CurrentEvent/Graphs';
 
 class CurrentEvent extends Component {
+    componentDidMount () {
+        this.getCurrentEventID();
+    };
     state = {
         clock: new Date(),
         currentEvent: {
@@ -118,6 +121,18 @@ class CurrentEvent extends Component {
             </div>
         </section>
     );
+    }
+
+    // Get the current event by id
+    getCurrentEventID = () => {
+        return getEventIdDatabase(this.props.currentEventID)
+        // .then(res => {
+        //     console.log(res)
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        //     return null;
+        // })
     }
 
     // Sends the new question to firebase and updates question in state
