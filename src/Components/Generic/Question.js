@@ -22,9 +22,9 @@ class Question extends Component {
         <div> {question.question} </div>
         <h3> Choices </h3>
         <div className="current-event-questions-question-choices">
-            <div className="current-event-questions-question-choices-choice"> {question.choiceA} </div>
-            <div className="current-event-questions-question-choices-choice"> {question.choiceB} </div>   
-            <div className="current-event-questions-question-choices-choice"> {question.choiceC} </div>
+            <div className="current-event-questions-question-choices-choice"> {question.choiceA} ({question.usersA.length})</div>
+            <div className="current-event-questions-question-choices-choice"> {question.choiceB} ({question.usersB.length})</div>   
+            <div className="current-event-questions-question-choices-choice"> {question.choiceC} ({question.usersC.length})</div>
         </div>
         <div className="current-event-questions-question-time"> Time: {question.timeToSet.toLocaleTimeString().slice(0,5)} (24hr) </div>
         {question.closed ? null : <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}`} data-whatever="@fat">Edit</button>}

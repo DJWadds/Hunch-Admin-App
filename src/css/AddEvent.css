@@ -1,0 +1,17 @@
+#event-date-input {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 60px 30px 60px 30px 70px;
+}
+
+.symbol {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#event-time-input {
+    display: grid;
+    grid-template-columns: 60px 30px 60px;
+}

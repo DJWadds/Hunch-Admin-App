@@ -29,20 +29,20 @@ class App extends Component {
         start: false,
         type: "Football"
       },
-      currentEventID: 'sd',
+      currentEventID: 'sda',
       liveEvent: false,
       notes: []
     };
     render() {
       const {admin, events, currentEvent, currentEventID, liveEvent, notes} = this.state;
-      const {addEvent, makeEventLive, addEventNote, editQuestion} = this;
+      const {addEvent, makeEventLive, addEventNote, editQuestion, closeEvent} = this;
     return (<Router>
       <div id="app">
         {admin ?  
           <Nav />
           : <Login login={this.login} />}
         <Switch>
-            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} notes={notes} currentEventID={currentEventID} addEventNote={addEventNote} editQuestion={editQuestion}/>}/>
+            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} notes={notes} currentEventID={currentEventID} addEventNote={addEventNote} editQuestion={editQuestion} closeEvent={closeEvent}/>}/>
             <Route exact path="/events/all" render={() => <AllEvents admin={admin} events={events} currentEvent={currentEvent} 
                   currentEventID={currentEventID} liveEvent={liveEvent} addEvent={addEvent} makeEventLive={makeEventLive}/>} />
         </Switch>
@@ -50,14 +50,25 @@ class App extends Component {
     </Router>);
     }
 
+    // Functions: getAllEvents, login, addEvent, makeEventLive, addEventNote, closeEvent
+
+    // Fetchs all events from the firebase and sets to states.
     getAllEvents = () => {
       getAllEventsFromDatabase()
       .then(data => {
-        const events = reduceToEventArray(data)
+        let events = reduceToEventArray(data)
+        const comingSoon = []
+        for (let i = 0; i < 2; i++) {
+          if (events.length > 0) {
+            comingSoon.push(events[i])
+            events.shift()
+          }
+        }
         this.setState({events})
       })
     }
 
+    // -- Will be altered later to work with the firebase but for now imports user and 
     login = (email, password) => {
       const authentication = authenticateAdmin(email, password)
       if (authentication === true) {
@@ -65,50 +76,46 @@ class App extends Component {
       } 
     }
 
-    addEvent = (eventName, eventType, eventDate, eventImgUrl, description) => {
-      const event = {
-        name: eventName,
-        type: eventType,
-        date: eventDate,
-        img: eventImgUrl,
-        description: description,
-        live: false,
-        start: false,
-        complete: false
-      }
+    // Adds an event in the database to the events collection and then resets all events state. 
+    // Function addEventToDatabase imported from Functions/Firebase.js
+    addEvent = (event) => {
+      const eventName = event.name;
       return addEventToDatabase(event, eventName)
       .then(data => {
-        return null
+        const events = reduceToEventArray(data)
+        this.setState({events})
+      })
+      .catch(err => {
+        console.log(err)
       })
     }
 
+    // Makes the current event in the database and sets to state. 
+    // Function makeEventLiveInDatabase imported from Functions/Firebase.js
     makeEventLive = (event, index) => {
-      // makeEventLiveInDatabase(event)
-      let currentEvent = {...event}
-      currentEvent.questions = 6
-
-      for (let i = 1; i <= 6; i++) {
-          currentEvent[i] = {
-              id: i,
-              question: `Input question here`,
-              choiceA: 'Input choice A here',
-              choiceB: 'Input choice B here',
-              choiceC: 'Input choice C here',
-              usersA: [],
-              usersB: [],
-              usersC: [],
-              timeToSet: new Date('June 01, 2018 00:00:01'),
-              closed: false
-              };
-      }
-      const currentEventID = 'sdad'
-      this.setState({currentEvent, currentEventID})
+      return makeEventLiveInDatabase(event)
+      .then(data => {
+        const currentEvent = data.currentEvent;
+        const currentEventID = data.currentEventID;
+        this.setState({currentEvent, currentEventID})
+      })
     }
 
+    // -- Currently only works locally adding a note to array in state, will be altered to work with firebase.
     addEventNote = (note) => {
       const notes = this.state.notes;
       notes.push(note);
       this.setState({notes})
+    }
+
+    // Removes the current event from state called in current event
+    closeEvent = () => {
+      this.setState({
+        currentEvent : {},
+        currentEventID : "",
+        liveEvent : false,
+        notes : []
+      })
     }
 }
 

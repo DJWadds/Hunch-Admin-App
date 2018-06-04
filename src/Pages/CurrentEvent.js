@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/CurrentEvent.css';
+import {updateQuestion} from '../Functions/Firebase';
 
 import Information from '../Components/CurrentEvent/Information';
 import Questions from '../Components/CurrentEvent/Questions';
@@ -91,19 +92,24 @@ class CurrentEvent extends Component {
               usersC: [],
               timeToSet: new Date('June 01, 2020 00:00:01'),
               closed: false
-            }
-          }
+            },
+            answer_for_Q1: {},
+            answer_for_Q2: {},
+            answer_for_Q3: {},
+            answer_for_Q4: {},
+            answer_for_Q5: {},
+            answer_for_Q6: {},
+        }
     }
     render() {
     const {currentEventID, notes, addEventNote} = this.props;
     const {currentEvent} = this.state;
-    const {editQuestion, updateClock} = this;
+    const {editQuestion, updateClock, eventClose} = this;
     if (currentEventID.length < 1) return <div> No Current Event </div>
-        
     return (
         <section id="current-event">
             <div id="current-event-left">
-                <Information updateClock={updateClock} currentEvent={currentEvent}/>
+                <Information updateClock={updateClock} currentEvent={currentEvent} eventClose={eventClose}/>
                 <Questions currentEvent={currentEvent} editQuestion={editQuestion}/>
             </div>
             <div id="current-event-right">
@@ -114,18 +120,27 @@ class CurrentEvent extends Component {
     );
     }
 
+    // Sends the new question to firebase and updates question in state
     editQuestion = (question) => {
+        return updateQuestion(question, this.props.currentEventID)
+        .then((data) => {
+            console.log(data)
+        })
         // const currentEventID = this.state.currentEventID;
         // const questionId = question.id;
         // const updateQuestionObj = {questionObj, currentEventID, questionId}
-        let currentEvent = this.state.currentEvent;
-        currentEvent[question.id] = question;
-        this.setState({currentEvent})
+        // let currentEvent = this.state.currentEvent;
+        // currentEvent[question.id] = question;
+        // this.setState({currentEvent})
     }
+
+    // Updates the clock, called in Clock every 10 secs
     updateClock = (clock) => {
-        const currentEvent = this.closeQuestion();
-        this.setState({currentEvent, clock})
+            const currentEvent = this.closeQuestion();
+            this.setState({currentEvent, clock})
     }
+
+    // Removes the edit button from a question 30 seconds before timeToSet 
     closeQuestion = () => {
         const time = Date.parse(this.state.clock);
         let currentEvent = this.state.currentEvent;
@@ -139,6 +154,12 @@ class CurrentEvent extends Component {
         }  
 
         return currentEvent;
+    }
+
+    // Removes event from state --will need to work with firebase
+    eventClose = () => {
+        this.setState({currentEvent : {}})
+        this.props.closeEvent();
     }
 }
 
