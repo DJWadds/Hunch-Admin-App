@@ -1,0 +1,37 @@
+#current-event-notes {
+    height: 47vh;
+    border: 1px solid black;
+    margin: 5px 0;
+}
+
+#current-event-notes-pannel {
+    width: 95%;
+    height: 40vh;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 10px auto;
+    overflow-y: auto;
+}
+
+#current-event-notes-input {
+    width: 95%;
+    display: grid;
+    grid-template-columns: 89% 10%;
+    grid-gap: 5px;
+    padding: 0 10px;
+    margin: 10px auto; 
+}
+
+#current-event-notes-input input {
+    height: 4vh;
+    text-indent: 0.5em;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+#current-event-notes-input button {
+    height: 4vh;
+    display: block;
+    margin: 0 auto;
+}

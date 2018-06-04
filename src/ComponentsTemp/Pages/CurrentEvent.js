@@ -42,7 +42,6 @@ class CurrentEvent extends Component {
         if (eventHours === currentHour && 
             eventMinute === currentMinute &&
             eventSecond === currentSecond) {
-            console.log(currentEvent[1])
         }
     }
     return (
@@ -84,10 +83,9 @@ class CurrentEvent extends Component {
             let  currentEvent = this.state.currentEvent;
             currentEvent[questionId] = questionObj;
             this.setState({currentEvent});
-            return console.log(res);
+            return null;
         })
         .catch((err) => {
-            console.log(err);
         })
     }
 

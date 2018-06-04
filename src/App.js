@@ -9,6 +9,7 @@ import {authenticateAdmin} from './external/login';
 import Login from './Pages/Login';
 import AllEvents from './Pages/AllEvents';
 import Nav from './Pages/Nav';
+import CurrentEvent from './Pages/CurrentEvent';
 
 class App extends Component {
     componentDidMount () {
@@ -17,21 +18,31 @@ class App extends Component {
     state = {
       admin: true,
       events: [],
-      currentEvent: {},
-      currentEventID: '',
-      liveEvent: false
+      currentEvent: {
+        complete: false,
+        date: "2018/06/28 18:00:00",
+        description: "Football match in Russia",
+        img: "https://placeimg.com/640/480/animals",
+        live: false,
+        name: "Engalnd v Someone",
+        questions: 6,
+        start: false,
+        type: "Football"
+      },
+      currentEventID: 'sd',
+      liveEvent: false,
+      notes: []
     };
     render() {
-      const {admin, events, currentEvent, currentEventID, liveEvent} = this.state;
-      const {addEvent, makeEventLive} = this;
-      console.log(events);
+      const {admin, events, currentEvent, currentEventID, liveEvent, notes} = this.state;
+      const {addEvent, makeEventLive, addEventNote, editQuestion} = this;
     return (<Router>
       <div id="app">
         {admin ?  
           <Nav />
           : <Login login={this.login} />}
         <Switch>
-            {/* <Route path="/events/currentEvent/:id" render={(props) => <CurrentEvent {...props} admin={admin}/>}/>   */}
+            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} notes={notes} currentEventID={currentEventID} addEventNote={addEventNote} editQuestion={editQuestion}/>}/>
             <Route exact path="/events/all" render={() => <AllEvents admin={admin} events={events} currentEvent={currentEvent} 
                   currentEventID={currentEventID} liveEvent={liveEvent} addEvent={addEvent} makeEventLive={makeEventLive}/>} />
         </Switch>
@@ -51,9 +62,7 @@ class App extends Component {
       const authentication = authenticateAdmin(email, password)
       if (authentication === true) {
         this.setState({admin : true})
-      } else {
-        console.log(authentication)
-      }
+      } 
     }
 
     addEvent = (eventName, eventType, eventDate, eventImgUrl, description) => {
@@ -69,13 +78,37 @@ class App extends Component {
       }
       return addEventToDatabase(event, eventName)
       .then(data => {
-        console.log(data)
         return null
       })
     }
 
     makeEventLive = (event, index) => {
-      makeEventLiveInDatabase(event)
+      // makeEventLiveInDatabase(event)
+      let currentEvent = {...event}
+      currentEvent.questions = 6
+
+      for (let i = 1; i <= 6; i++) {
+          currentEvent[i] = {
+              id: i,
+              question: `Input question here`,
+              choiceA: 'Input choice A here',
+              choiceB: 'Input choice B here',
+              choiceC: 'Input choice C here',
+              usersA: [],
+              usersB: [],
+              usersC: [],
+              timeToSet: new Date('June 01, 2018 00:00:01'),
+              closed: false
+              };
+      }
+      const currentEventID = 'sdad'
+      this.setState({currentEvent, currentEventID})
+    }
+
+    addEventNote = (note) => {
+      const notes = this.state.notes;
+      notes.push(note);
+      this.setState({notes})
     }
 }
 

@@ -1,0 +1,24 @@
+#current-event {
+    width: 98vw;
+    margin: 0 10px 5px;
+}
+
+#current-event {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+    padding: 0 5px;
+}
+
+#current-event-information {
+    height: 20vh;
+    margin: 5px 0;
+}
+
+#current-event-graphs {
+    height: 43vh;
+}
+
+#current-event-information, #current-event-graphs {
+    border: 1px solid black;
+}

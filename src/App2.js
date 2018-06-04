@@ -36,9 +36,7 @@ class App extends Component {
     const authentication = authenticateAdmin(email, password)
     if (authentication === true) {
       this.setState({admin : true})
-    } else {
-      console.log(authentication)
-    }
+    } 
   }
 }
 
