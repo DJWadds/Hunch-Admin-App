@@ -1,6 +1,7 @@
 .current-event-questions-question {
-    border: 1px solid black;
-    padding: 5px;
+    border-radius: 10px;
+    background-color: lightpink;
+    padding: 10px;
 }
 
 .current-event-questions-question h3 {
@@ -12,6 +13,7 @@
     width: 50%;
     text-align: center;
     background-color: lightgray;
+    border: 1px solid black;
     border-radius: 5px;
     margin: 5px auto;
 }
@@ -23,4 +25,17 @@
 .current-event-questions-question button {
     display: block;
     margin: 0 auto 5px;
+}
+
+.current-event-questions-question-live-question {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+    margin: 5px auto;
+}
+
+.question-time-input {
+    display: grid;
+    grid-template-columns: 60px 30px 60px;
 }

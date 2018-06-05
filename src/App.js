@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './css/App.css'
 
 import {reduceToEventArray} from './Functions/index';
-import {getAllEventsFromDatabase, addEventToDatabase, makeEventLiveInDatabase, deleteEventFirebase} from './Functions/Firebase';
+import {getAllEventsFromFirebase, postEventToFirebase, deleteEventFromFirebase, postCurrentEventToFirebase} from './Functions/Firebase';
 import {authenticateAdmin} from './external/login';
 
 import Login from './Pages/Login';
@@ -20,7 +20,7 @@ class App extends Component {
       events: [],
       comingSoon: [],
       currentEvent: {},
-      currentEventID: '',
+      currentEventID: 'won9LTNWyw1OFNDa12MI',
       liveEvent: false,
       notes: []
     };
@@ -40,12 +40,9 @@ class App extends Component {
       </div>
     </Router>);
     }
-
-    // Functions: getAllEvents, login, addEvent, makeEventLive, addEventNote, closeEvent
-
-    // Fetchs all events from the firebase and sets to states.
+    
     getAllEvents = () => {
-      getAllEventsFromDatabase()
+      getAllEventsFromFirebase()
       .then(data => {
         let events = reduceToEventArray(data)
         const comingSoon = []
@@ -59,7 +56,6 @@ class App extends Component {
       })
     }
 
-    // -- Will be altered later to work with the firebase but for now imports user and 
     login = (email, password) => {
       const authentication = authenticateAdmin(email, password)
       if (authentication === true) {
@@ -67,11 +63,9 @@ class App extends Component {
       } 
     }
 
-    // Adds an event in the database to the events collection and then resets all events state. 
-    // Function addEventToDatabase imported from Functions/Firebase.js
     addEvent = (event) => {
       const eventName = event.name;
-      return addEventToDatabase(event, eventName)
+      return postEventToFirebase(event, eventName)
       .then(data => {
         const events = reduceToEventArray(data)
         const comingSoon = []
@@ -89,7 +83,7 @@ class App extends Component {
     }
 
     deleteEvent = (event) => {
-      return deleteEventFirebase(event)
+      return deleteEventFromFirebase(event)
       .then(() => {
         this.getAllEvents()
       })
@@ -98,12 +92,9 @@ class App extends Component {
       })
     }
 
-    // Makes the current event in the database and sets to state. 
-    // Function makeEventLiveInDatabase imported from Functions/Firebase.js
     makeEventLive = (event, index) => {
-      return makeEventLiveInDatabase(event)
+      return postCurrentEventToFirebase(event)
       .then(data => {
-        console.log(data)
         const currentEvent = data.currentEvent;
         const currentEventID = data.currentEventId;
         // this.deleteEvent(event)
@@ -115,14 +106,12 @@ class App extends Component {
       })
     }
 
-    // -- Currently only works locally adding a note to array in state, will be altered to work with firebase.
     addEventNote = (note) => {
       const notes = this.state.notes;
       notes.push(note);
       this.setState({notes})
     }
 
-    // Removes the current event from state called in current event
     closeEvent = () => {
       this.setState({
         currentEvent : {},

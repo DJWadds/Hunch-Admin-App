@@ -36,7 +36,7 @@ class Event extends Component {
         const time = `${hours}:${minutes}`;
 
         const day = eventDate.getDate();
-        const month = eventDate.getMonth();
+        const month = eventDate.getMonth() + 1;
         const year = eventDate.getFullYear();
         const date = `${day}/${month}/${year}`
         this.setState({time, date})

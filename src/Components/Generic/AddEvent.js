@@ -89,7 +89,7 @@ class AddEvent extends Component {
             return null
         }
         const year = parseInt(event.year, 10)
-        const month = parseInt(event.month, 10)
+        const month = parseInt(event.month - 1, 10)
         const day = parseInt(event.day, 10)
         const hour = parseInt(event.hour, 10)
         const minute = parseInt(event.minute, 10)
@@ -115,7 +115,7 @@ class AddEvent extends Component {
             description: event.description,
             live: false,
             start: false,
-            complete: false
+            complete: false,
         }
         this.props.addEvent(newEvent);
     }

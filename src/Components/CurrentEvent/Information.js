@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 
 import Clock from '../Generic/Clock';
-import CurrentEvent from '../../Pages/CurrentEvent';
 
 class Information extends Component {
     render() {
-        const {updateClock, currentEvent, eventClose} = this.props;
+        const {currentEvent, eventClose, nextQuestion} = this.props;
+
+        const date = new Date(currentEvent[nextQuestion].timeToSet);
+        let hours = date.getHours();
+        if (hours < 10) hours = `0${hours}`;
+        let minutes = date.getMinutes();
+        if (minutes < 10) minutes = `0${minutes}`;
+        const time = `${hours}:${minutes}`;
+
     return (
         <section id="current-event-information">
-            <Clock updateClock={updateClock}/>
-            <div> Next Question: {currentEvent.nextQuestion} </div>
-            <div> Next Question Time: {currentEvent[currentEvent.nextQuestion].timeToSet.toLocaleTimeString().slice(0,5)} </div>
+            <Clock/>
+            
+            <div> Next Question: {nextQuestion} </div>
+            <div> Next Question Time: {time} </div>
             <button type="button" className="btn btn-warning" onClick={eventClose}>Stop Event</button>
         </section>
     );

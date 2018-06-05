@@ -8,42 +8,33 @@ class Questions extends Component {
         this.setQuestionsArray();
     };
     state = {
-        questions: []
+        questions: [],
+        liveQuestion: false
     }
     render() {
-        const {currentEvent} = this.props;
-        const {questions} = this.state;
-        const {updateQuestion} = this;
+        const {
+            currentEvent,
+            editQuestion, makeQuestionLive, sendAnswer
+        } = this.props;
+        const {questions, liveQuestion} = this.state;
     return (
         <section id="current-event-questions">
-            {questions.map((question) => <Question question={currentEvent[question]} key={currentEvent[question].id} updateQuestion={updateQuestion}/>)}
+            {questions.map(question => <Question key={question.id} question={question} liveQuestion={liveQuestion} editQuestion={editQuestion} makeQuestionLive={makeQuestionLive} sendAnswer={sendAnswer} />)}
         </section>
     );
     }
+
     setQuestionsArray = () => {
+        const currentEvent = this.props.currentEvent
         const questions = [];
-        for (let i = 1; i <= this.props.currentEvent.questions; i++) {
-            questions.push(i)
+        let liveQuestion = false;
+        for (let i = 1; i <= currentEvent.questions; i++) {
+            if (currentEvent[i].live) liveQuestion = true
+            questions.push(currentEvent[i])
         }
-        this.setState({questions})
+        this.setState({questions, liveQuestion})
     }
 
-    updateQuestion = (question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput) => {
-        let newQuestion = {...question};
-        newQuestion.question = questionInput;
-        newQuestion.choiceA = choiceAInput;
-        newQuestion.choiceB = choiceBInput;
-        newQuestion.choiceC = choiceCInput;
-
-        const timeToSetHour = parseInt(timeToSetInput[0] + timeToSetInput[1], 10)
-        const timeToSetMins = parseInt(timeToSetInput[3] + timeToSetInput[4], 10)
-        let date = new Date();
-        date.setHours(timeToSetHour)
-        date.setMinutes(timeToSetMins)
-        date.setSeconds(0)
-        newQuestion.timeToSet = date;
-        this.props.editQuestion(newQuestion)
-    }
 }
 
 export default Questions;
