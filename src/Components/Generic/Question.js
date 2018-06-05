@@ -8,7 +8,7 @@ class Question extends Component {
     }
     state = {
         questionInputInfo: {
-            questionInput: '',
+            questionInput: this.props.question.question,
             ans_aInput: "",  
             ans_bInput: "", 
             ans_cInput: "",
@@ -22,7 +22,8 @@ class Question extends Component {
         question, liveQuestion,
         makeQuestionLive, sendAnswer
     } = this.props;
-    const {answerInput} = this.state.questionInputInfo;
+    console.log(this.props.question.question)
+    const {questionInput, answerInput} = this.state.questionInputInfo;
     const {updateInput, setUpdateQuestion} = this;
 
     const date = new Date(question.timeToSet)
@@ -49,7 +50,7 @@ class Question extends Component {
         <div className="current-event-questions-question-time"> Time: {time} (24hr) </div>
         {question.live ? 
         <div className="current-event-questions-question-live-question">
-            <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id)}>Unlive</button>   
+            <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id)}>Un-live</button>   
             <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}ans`} data-whatever="@fat">Answer</button>
         </div>
         : 
@@ -66,7 +67,7 @@ class Question extends Component {
                     <form>
                         <div className="form-group">
                             <label htmlFor="question-question" className="col-form-label">Question:</label>
-                            <input type="text" className="form-control" id="event-name" onChange={(event) => updateInput(event, 'questionInput')}/>
+                            <input type="text" className="form-control" id="event-name" onChange={(event) => updateInput(event, 'questionInput')} value={questionInput} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="question-choice-one" className="col-form-label">Choice A:</label>

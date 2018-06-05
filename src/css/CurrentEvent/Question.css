@@ -1,6 +1,7 @@
 .current-event-questions-question {
-    border: 1px solid black;
-    padding: 5px;
+    border-radius: 10px;
+    background-color: lightpink;
+    padding: 10px;
 }
 
 .current-event-questions-question h3 {
@@ -12,6 +13,7 @@
     width: 50%;
     text-align: center;
     background-color: lightgray;
+    border: 1px solid black;
     border-radius: 5px;
     margin: 5px auto;
 }

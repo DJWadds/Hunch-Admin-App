@@ -20,7 +20,7 @@ class App extends Component {
       events: [],
       comingSoon: [],
       currentEvent: {},
-      currentEventID: 'mb5oFZLNS4ZeMCX5Jh6E',
+      currentEventID: 'won9LTNWyw1OFNDa12MI',
       liveEvent: false,
       notes: []
     };

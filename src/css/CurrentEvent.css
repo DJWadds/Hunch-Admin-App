@@ -6,7 +6,7 @@
 #current-event {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 5px;
+    grid-gap: 15px;
     padding: 0 5px;
 }
 

@@ -135,10 +135,9 @@ export function makeQuestionLiveInFirebase (questionNo) {
 // 9 - POST ANSWER TO FIREBASE
 export function postAnswerToFirebase (answer, question, event_id) {
     console.log({correct: answer, question: `${question}`, event_id})
-    axios.post(postAnswerToFirebaseURL, {correct: answer, question: `${question}`, event_id})
-    .then(res => {
-        console.log(res.data)
-        return {answer, question, event_id}
+    axios.post(postAnswerToFirebaseURL, {correct: answer, question: `${question}`, event_id}) 
+    .then(() => {
+        return true
     })
     .catch(err => {
         return null
