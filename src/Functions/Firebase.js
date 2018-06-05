@@ -3,7 +3,7 @@ import {
     // AllEvents
     getAllEventsURL, postNewEventURL, deleteEventUrl, 
     // Current Event
-    makeCurrentEventLiveURL, updateQuestionURL, getEventByIdURL
+    makeCurrentEventLiveURL, updateQuestionURL, getEventByIdURL, moveQuestionsURL
     } from '../config/index';
 
     // All Events
@@ -42,7 +42,7 @@ export function deleteEventFirebase (event) {
 export function getEventIdDatabase (eventID) {
     return axios.post(getEventByIdURL, {eventID})
     .then(res => {
-        console.log(res)
+        return res.data;
     })
     .catch(err => {
         return err;
@@ -52,7 +52,10 @@ export function getEventIdDatabase (eventID) {
 export function makeEventLiveInDatabase (event) {
     let currentEvent = {...event};
     currentEvent.questions = 6;
-    const setDateAndTime = Date.parse(new Date('June 01, 2050 00:00:01'));
+    let date = new Date(event.date);
+    date.setHours(23);
+    date.setMinutes(59);
+    const setDateAndTime = Date.parse(date);
     for (let i = 1; i <= 6; i++) {
         currentEvent[i] = {
                 id: i,
@@ -62,6 +65,7 @@ export function makeEventLiveInDatabase (event) {
                 ans_c: 'Input choice C here',
                 timeToSet: setDateAndTime,
                 closed: false,
+                live: false,
                 answers_num: 3
             };
         currentEvent[`answers_for_Q${i}`] = {};
@@ -77,12 +81,22 @@ export function makeEventLiveInDatabase (event) {
 }
 
 export function updateQuestion (questionObj, currentEvent, eventID) {
-    console.log(questionObj)
-    let date = currentEvent.date;
     const questionId = questionObj.id;
     return axios.post(updateQuestionURL, {eventID, questionId, questionObj})
     .then(res => {
-        console.log(res)
+        return questionObj
     })
+    .catch(err => {
+        return(err);
+    });
+}
+
+export function moveQuestionsToCurrentQuestions (eventID) {
+    console.log(eventID)
+    axios.post(moveQuestionsURL, {eventID})
+}
+
+export function makeQuestionLiveDatabase (questionNo) {
+    axios.post('https://us-central1-test-database-92434.cloudfunctions.net/changeLiveStatus', {questionNo})
 }
 

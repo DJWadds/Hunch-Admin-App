@@ -20,7 +20,7 @@ class App extends Component {
       events: [],
       comingSoon: [],
       currentEvent: {},
-      currentEventID: '',
+      currentEventID: 'mb5oFZLNS4ZeMCX5Jh6E',
       liveEvent: false,
       notes: []
     };
@@ -103,7 +103,6 @@ class App extends Component {
     makeEventLive = (event, index) => {
       return makeEventLiveInDatabase(event)
       .then(data => {
-        console.log(data)
         const currentEvent = data.currentEvent;
         const currentEventID = data.currentEventId;
         // this.deleteEvent(event)
