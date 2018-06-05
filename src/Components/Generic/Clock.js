@@ -19,9 +19,6 @@ class Clock extends Component {
     }
 
     currentTime = () => {
-        if (this.state.time.getSeconds() % 10 === 0) {
-            this.props.updateCurrentEvent(this.state.time);
-        }
         this.setState({time: new Date()})
     }
 }

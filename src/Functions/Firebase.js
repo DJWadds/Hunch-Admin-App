@@ -1,15 +1,33 @@
 import axios from 'axios';
 import {
-    // AllEvents
-    getAllEventsURL, postNewEventURL, deleteEventUrl, 
-    // Current Event
-    makeCurrentEventLiveURL, updateQuestionURL, getEventByIdURL, moveQuestionsURL
+    getAllEventsFromFirebaseURL,
+    postEventToFirebaseURL,
+    deleteEventFromFirebaseURL,
+    postCurrentEventToFirebaseURL,
+    getCurrentEventFromFirebaseUsingIdURL,
+    updateQuestionInFireBaseURL,
+    moveAllQuestionsToCurrentQuestionsCollectionInFirebaseURL,
+    makeQuestionLiveInFirebaseURL,
+    postAnswerToFirebaseURL
     } from '../config/index';
 
-    // All Events
+/* AVAILABLE FUNCTIONS
+1 - GET ALL EVENTS FROM FIREBASE
+2 - POST EVENT TO FIREBASE
+3 - DELETE EVENT FROM FIREBASE
 
-export function getAllEventsFromDatabase () {
-    return axios.get(getAllEventsURL)
+4 - POST CURRENT EVENT TO FIRBASE
+5 - GET CURRENT EVENT FROM FIREBASE USING ID
+6 - UPDATE QUESTION IN FIREBASE
+
+7 - MOVE ALL QUESTIONS TO CURRENT QUESTION COLLECTION IN FIREBASE -- INTERNAL
+8 - MAKE QUESTIONS LIVE IN FIREBASE
+9 - POST ANSWER TO FIREBASE
+*/
+
+// 1 - GET ALL EVENTS FROM FIREBASE
+export function getAllEventsFromFirebase () {
+    return axios.get(getAllEventsFromFirebaseURL)
     .then((res) => {
         return res.data;
     })
@@ -18,9 +36,10 @@ export function getAllEventsFromDatabase () {
     });
 };
 
-export function addEventToDatabase (event, eventName) {
+// 2 - POST EVENT TO FIREBASE
+export function postEventToFirebase (event, eventName) {
     const addEvent = {eventName, event};
-    return axios.post(postNewEventURL, addEvent)
+    return axios.post(postEventToFirebaseURL, addEvent)
     .then((res) => {
         return res.data;
     })
@@ -29,27 +48,17 @@ export function addEventToDatabase (event, eventName) {
     })
 }
 
-export function deleteEventFirebase (event) {
-    return axios.post(deleteEventUrl, {eventNo: event.name})
+// 3 - DELETE EVENT FROM FIREBASE
+export function deleteEventFromFirebase (event) {
+    return axios.post(deleteEventFromFirebaseURL, {eventNo: event.name})
     .then((res) => {
         return console.log(res);
     })
     .catch(err => err);
 }
 
-    // Current Event
-
-export function getEventIdDatabase (eventID) {
-    return axios.post(getEventByIdURL, {eventID})
-    .then(res => {
-        return res.data;
-    })
-    .catch(err => {
-        return err;
-    })
-}
-
-export function makeEventLiveInDatabase (event) {
+// 4 - POST CURRENT EVENT TO FIRBASE
+export function postCurrentEventToFirebase (event) {
     let currentEvent = {...event};
     currentEvent.questions = 6;
     let date = new Date(event.date);
@@ -70,9 +79,10 @@ export function makeEventLiveInDatabase (event) {
             };
         currentEvent[`answers_for_Q${i}`] = {};
     }
-    return axios.post(makeCurrentEventLiveURL, {currentEvent})
+    return axios.post(postCurrentEventToFirebaseURL, {currentEvent})
     .then(res => {
         const currentEventId = res.data.eventID;
+        moveAllQuestionsToCurrentQuestionsCollectionInFirebase(currentEventId)
         return {currentEventId, currentEvent};
     })
     .catch(err => {
@@ -80,10 +90,23 @@ export function makeEventLiveInDatabase (event) {
     });
 }
 
-export function updateQuestion (questionObj, currentEvent, eventID) {
-    const questionId = questionObj.id;
-    return axios.post(updateQuestionURL, {eventID, questionId, questionObj})
+// 5 - GET CURRENT EVENT FROM FIREBASE USING ID
+export function getCurrentEventFromFirebaseUsingId (eventID) {
+    return axios.post(getCurrentEventFromFirebaseUsingIdURL, {eventID})
     .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        return err;
+    })
+}
+
+// 6 - UPDATE QUESTION IN FIREBASE
+export function updateQuestionInFireBase (questionObj, currentEvent, eventID) {
+    const questionId = questionObj.id;
+    return axios.post(updateQuestionInFireBaseURL, {eventID, questionId, questionObj})
+    .then(res => {
+        moveAllQuestionsToCurrentQuestionsCollectionInFirebase(eventID)
         return questionObj
     })
     .catch(err => {
@@ -91,12 +114,33 @@ export function updateQuestion (questionObj, currentEvent, eventID) {
     });
 }
 
-export function moveQuestionsToCurrentQuestions (eventID) {
-    console.log(eventID)
-    axios.post(moveQuestionsURL, {eventID})
+// 7 - MOVE ALL QUESTIONS TO CURRENT QUESTION COLLECTION IN FIREBASE
+function moveAllQuestionsToCurrentQuestionsCollectionInFirebase (eventID) {
+    axios.post(moveAllQuestionsToCurrentQuestionsCollectionInFirebaseURL, {eventID})
 }
 
-export function makeQuestionLiveDatabase (questionNo) {
-    axios.post('https://us-central1-test-database-92434.cloudfunctions.net/changeLiveStatus', {questionNo})
+// 8 - MAKE QUESTIONS LIVE IN FIREBASE
+export function makeQuestionLiveInFirebase (questionNo) {
+    return axios.post(makeQuestionLiveInFirebaseURL, {questionNo})
+    .then(res => {
+        console.log(`Question ${questionNo} is live!`)
+        return questionNo
+    })
+    .catch(err => {
+        console.log(err)
+        return null
+    })
 }
 
+// 9 - POST ANSWER TO FIREBASE
+export function postAnswerToFirebase (answer, question, event_id) {
+    console.log({correct: answer, question: `${question}`, event_id})
+    axios.post(postAnswerToFirebaseURL, {correct: answer, question: `${question}`, event_id})
+    .then(res => {
+        console.log(res.data)
+        return {answer, question, event_id}
+    })
+    .catch(err => {
+        return null
+    })
+}   

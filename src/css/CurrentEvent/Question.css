@@ -24,3 +24,16 @@
     display: block;
     margin: 0 auto 5px;
 }
+
+.current-event-questions-question-live-question {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+    margin: 5px auto;
+}
+
+.question-time-input {
+    display: grid;
+    grid-template-columns: 60px 30px 60px;
+}

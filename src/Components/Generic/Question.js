@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/CurrentEvent/Question.css';
-import {makeQuestionLiveDatabase} from '../../Functions/Firebase';
+import {} from '../../Functions/Firebase';
 
 class Question extends Component {
     componentDidMount () {
@@ -18,8 +18,12 @@ class Question extends Component {
         }
     };
     render() {
-    const {question} = this.props
-    const {updateInput, setUpdateQuestion, makeQuestionLive} = this;
+    const {
+        question, liveQuestion,
+        makeQuestionLive, sendAnswer
+    } = this.props;
+    const {answerInput} = this.state.questionInputInfo;
+    const {updateInput, setUpdateQuestion} = this;
 
     const date = new Date(question.timeToSet)
     let hours = date.getHours();
@@ -34,13 +38,26 @@ class Question extends Component {
         <h3> Choices </h3>
         <div className="current-event-questions-question-choices">
             <div className="current-event-questions-question-choices-choice"> {question.ans_a}</div>
-            <div className="current-event-questions-question-choices-choice"> {question.ans_b}</div>   
-            <div className="current-event-questions-question-choices-choice"> {question.ans_c}</div>
+            <div className="current-event-questions-question-choices-choice"> {question.ans_b}</div> 
+            {question.ans_c ?
+                <div className="current-event-questions-question-choices-choice"> {question.ans_c}</div>
+                :
+                <div className="current-event-questions-question-choices-choice"> n/a</div>
+            }  
+            
         </div>
         <div className="current-event-questions-question-time"> Time: {time} (24hr) </div>
-        {question.closed ? null : <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}`} data-whatever="@fat">Edit</button>}
-        <button type="button" className="btn btn-primary" onClick={makeQuestionLive}>Live</button>
-
+        {question.live ? 
+        <div className="current-event-questions-question-live-question">
+            <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id)}>Unlive</button>   
+            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}ans`} data-whatever="@fat">Answer</button>
+        </div>
+        : 
+        <div className="current-event-questions-question-live-question">
+            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}`} data-whatever="@fat">Edit</button>
+            {!liveQuestion && <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id)}>Live</button>}
+        </div>        
+        }
 
         <div className="modal fade" id={`question${question.id}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
@@ -66,8 +83,11 @@ class Question extends Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="question-time" className="col-form-label">Question Time:</label>
-                            <input placeholder="hh" type="text" className="form-control" id="event-date" onChange={(event) => updateInput(event, 'timeToSetInputHour')}/>
-                            <input placeholder="mm" type="text" className="form-control" id="event-date" onChange={(event) => updateInput(event, 'timeToSetInputMinute')}/>
+                            <div className="question-time-input">
+                                <input placeholder="hh" type="text" className="form-control" id="event-date" onChange={(event) => updateInput(event, 'timeToSetInputHour')}/>
+                                <div className='symbol'> : </div>
+                                <input placeholder="mm" type="text" className="form-control" id="event-date" onChange={(event) => updateInput(event, 'timeToSetInputMinute')}/>
+                            </div>
                             <small id="emailHelp" className="form-text text-muted">Form: hh:mm</small>
                         </div>
                     </form>
@@ -75,6 +95,26 @@ class Question extends Component {
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={setUpdateQuestion}>Change</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div className="modal fade" id={`question${question.id}ans`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+            <div className="modal-content">
+                <div className="modal-body">
+                    <form>
+                        <div className="form-group">
+                            <label htmlFor="question-answer" className="col-form-label">Answer:</label>
+                            <input type="text" className="form-control" id="event-name" onChange={(event) => updateInput(event, 'answerInput')}/>
+                            <small id="answerHelp" className="form-text text-muted">a, b or c</small>
+                        </div>
+                    </form>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => sendAnswer(answerInput, question.id)}>Submit</button>
                 </div>
             </div>
         </div>
@@ -96,7 +136,7 @@ class Question extends Component {
         question.ans_b = questionInputInfo.ans_bInput;
         if (questionInputInfo.ans_cInput.length === 0) {
             question.answers_num = 2; 
-            question.ans_c = ''
+            question.ans_c = undefined;
         } else {
             question.answers_num = 3;
             question.ans_c = questionInputInfo.ans_cInput;
@@ -108,10 +148,6 @@ class Question extends Component {
         question.timeToSet = Date.parse(time);
 
         this.props.editQuestion(question)
-    }
-
-    makeQuestionLive = () => {
-        makeQuestionLiveDatabase(this.props.question.id)
     }
 }
 

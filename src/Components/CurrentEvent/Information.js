@@ -4,7 +4,7 @@ import Clock from '../Generic/Clock';
 
 class Information extends Component {
     render() {
-        const {updateCurrentEvent, currentEvent, eventClose, nextQuestion} = this.props;
+        const {currentEvent, eventClose, nextQuestion} = this.props;
 
         const date = new Date(currentEvent[nextQuestion].timeToSet);
         let hours = date.getHours();
@@ -15,7 +15,8 @@ class Information extends Component {
 
     return (
         <section id="current-event-information">
-            <Clock updateCurrentEvent={updateCurrentEvent}/>
+            <Clock/>
+            
             <div> Next Question: {nextQuestion} </div>
             <div> Next Question Time: {time} </div>
             <button type="button" className="btn btn-warning" onClick={eventClose}>Stop Event</button>

@@ -8,24 +8,31 @@ class Questions extends Component {
         this.setQuestionsArray();
     };
     state = {
-        questions: []
+        questions: [],
+        liveQuestion: false
     }
     render() {
-        const {currentEvent, editQuestion} = this.props;
-        const {questions} = this.state;
+        const {
+            currentEvent,
+            editQuestion, makeQuestionLive, sendAnswer
+        } = this.props;
+        const {questions, liveQuestion} = this.state;
     return (
         <section id="current-event-questions">
-            {questions.map((question) => <Question question={currentEvent[question]} key={currentEvent[question].id} editQuestion={editQuestion}/>)}
+            {questions.map(question => <Question key={question.id} question={question} liveQuestion={liveQuestion} editQuestion={editQuestion} makeQuestionLive={makeQuestionLive} sendAnswer={sendAnswer} />)}
         </section>
     );
     }
 
     setQuestionsArray = () => {
+        const currentEvent = this.props.currentEvent
         const questions = [];
-        for (let i = 1; i <= this.props.currentEvent.questions; i++) {
-            questions.push(i)
+        let liveQuestion = false;
+        for (let i = 1; i <= currentEvent.questions; i++) {
+            if (currentEvent[i].live) liveQuestion = true
+            questions.push(currentEvent[i])
         }
-        this.setState({questions})
+        this.setState({questions, liveQuestion})
     }
 
 }
