@@ -137,7 +137,8 @@ class CurrentEvent extends Component {
 
     // Sends the new question to firebase and updates question in state
     editQuestion = (question) => {
-        return updateQuestion(question, this.props.currentEventID)
+        
+        return updateQuestion(question, this.state.currentEvent, this.props.currentEventID)
         .then((data) => {
             console.log(data)
         })

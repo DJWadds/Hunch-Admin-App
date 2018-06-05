@@ -30,9 +30,7 @@ export function addEventToDatabase (event, eventName) {
 }
 
 export function deleteEventFirebase (event) {
-    const body = {eventNo: event.name}
-    console.log(body)
-    return axios.delete(deleteEventUrl, body)
+    return axios.post(deleteEventUrl, {eventNo: event.name})
     .then((res) => {
         return console.log(res);
     })
@@ -42,8 +40,7 @@ export function deleteEventFirebase (event) {
     // Current Event
 
 export function getEventIdDatabase (eventID) {
-    console.log(eventID)
-    return axios.get(getEventByIdURL, {eventID})
+    return axios.post(getEventByIdURL, {eventID})
     .then(res => {
         console.log(res)
     })
@@ -79,7 +76,9 @@ export function makeEventLiveInDatabase (event) {
     });
 }
 
-export function updateQuestion (questionObj, eventID) {
+export function updateQuestion (questionObj, currentEvent, eventID) {
+    console.log(questionObj)
+    let date = currentEvent.date;
     const questionId = questionObj.id;
     return axios.post(updateQuestionURL, {eventID, questionId, questionObj})
     .then(res => {

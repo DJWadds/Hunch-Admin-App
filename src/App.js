@@ -19,18 +19,8 @@ class App extends Component {
       admin: true,
       events: [],
       comingSoon: [],
-      currentEvent: {
-        complete: false,
-        date: "2018/06/28 18:00:00",
-        description: "Football match in Russia",
-        img: "https://placeimg.com/640/480/animals",
-        live: false,
-        name: "Engalnd v Someone",
-        questions: 6,
-        start: false,
-        type: "Football"
-      },
-      currentEventID: 'xHssevAf4hiXSw3sXZQT',
+      currentEvent: {},
+      currentEventID: '',
       liveEvent: false,
       notes: []
     };
@@ -116,9 +106,8 @@ class App extends Component {
         console.log(data)
         const currentEvent = data.currentEvent;
         const currentEventID = data.currentEventId;
-        console.log('event', currentEvent)
-        console.log('id', currentEventID)
-        this.setState({currentEvent, currentEventID})
+        // this.deleteEvent(event)
+        this.setState({currentEvent, currentEventID, liveEvent : true})
       })
       .catch(err => {
         console.log(err)

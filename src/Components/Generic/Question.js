@@ -6,17 +6,19 @@ class Question extends Component {
         
     }
     state = {
-     questionInput: '',
-     choiceAInput: "",  
-     choiceBInput: "", 
-     choiceCInput: "",
-     timeToSetInput: "",
-     answerInput: ""
+     question: {
+        questionInput: '',
+        choiceAInput: "",  
+        choiceBInput: "", 
+        choiceCInput: "",
+        timeToSetInputHour: "",
+        timeToSetInputMinute: "",
+        answerInput: ""
+     }
     }
     render() {
-    const {questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput} = this.state;
-    const {question, updateQuestion} = this.props
-    const {updateQuestionInput, updateChoiceA, updateChoiceB, updateChoiceC, updateTimeToSet} = this;
+    const {question} = this.props
+    const {updateInput, setUpdateQuestion} = this;
     return (<div className="current-event-questions-question">
         <h3>Question {question.id} </h3>
         <div> {question.question} </div>
@@ -37,31 +39,32 @@ class Question extends Component {
                     <form>
                         <div className="form-group">
                             <label htmlFor="question-question" className="col-form-label">Question:</label>
-                            <input type="text" className="form-control" id="event-name" onChange={updateQuestionInput}/>
+                            <input type="text" className="form-control" id="event-name" onChange={(event) => updateInput(event, 'questionInput')}/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="question-choice-one" className="col-form-label">Choice A:</label>
-                            <input type="text" className="form-control" id="event-name" onChange={updateChoiceA}/>
+                            <input type="text" className="form-control" id="event-name" onChange={(event) => updateInput(event, 'choiceAInput')}/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="question-choice-two" className="col-form-label">Choice B:</label>
-                            <input type="text" className="form-control" id="event-name" onChange={updateChoiceB}/>
+                            <input type="text" className="form-control" id="event-name" onChange={(event) => updateInput(event, 'choiceBInput')}/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="question-choice-three" className="col-form-label">Choice C:</label>
-                            <input type="text" className="form-control" id="event-name" onChange={updateChoiceC}/>
+                            <input type="text" className="form-control" id="event-name" onChange={(event) => updateInput(event, 'choiceCInput')}/>
                             <small id="chocieHelp" className="form-text text-muted">Choice three can be left blank</small>
                         </div>
                         <div className="form-group">
                             <label htmlFor="question-time" className="col-form-label">Question Time:</label>
-                            <input type="text" className="form-control" id="event-date" onChange={updateTimeToSet}/>
+                            <input placeholder="hh" type="text" className="form-control" id="event-date" onChange={(event) => updateInput(event, 'timeToSetInputHour')}/>
+                            <input placeholder="mm" type="text" className="form-control" id="event-date" onChange={(event) => updateInput(event, 'timeToSetInputMinute')}/>
                             <small id="emailHelp" className="form-text text-muted">Form: hh:mm</small>
                         </div>
                     </form>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => updateQuestion(question, questionInput, choiceAInput, choiceBInput, choiceCInput, timeToSetInput)}>Change</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={setUpdateQuestion}>Change</button>
                 </div>
             </div>
         </div>
@@ -69,24 +72,15 @@ class Question extends Component {
     </div>);
     }
 
-    updateQuestionInput = (event) => {
-        this.setState({questionInput : event.target.value})
+    updateInput = (event, context) => {
+        let question = this.state.question;
+        question[context] = event.target.value
+        this.setState({question})
     }
 
-    updateChoiceA = (event) => {
-        this.setState({choiceAInput : event.target.value})
-    }
-
-    updateChoiceB = (event) => {
-        this.setState({choiceBInput : event.target.value})
-    }
-
-    updateChoiceC = (event) => {
-        this.setState({choiceCInput : event.target.value})
-    }
-
-    updateTimeToSet = (event) => {
-        this.setState({timeToSetInput : event.target.value})
+    setUpdateQuestion = () => {
+        let question = this.props.question
+        this.props.updateQuestion(question)
     }
 }
 
