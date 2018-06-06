@@ -17,6 +17,7 @@ class Questions extends Component {
             editQuestion, makeQuestionLive, sendAnswer
         } = this.props;
         const {questions, liveQuestion} = this.state;
+
     return (
         <section id="current-event-questions">
             {questions.map(question => <Question key={question.id} question={question} liveQuestion={liveQuestion} editQuestion={editQuestion} makeQuestionLive={makeQuestionLive} sendAnswer={sendAnswer} />)}

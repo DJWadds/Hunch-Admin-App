@@ -69,12 +69,12 @@ class CurrentEvent extends Component {
         })
     }
 
-    makeQuestionLive = (questionId) => {
+    makeQuestionLive = (questionId, condition) => {
         return makeQuestionLiveInFirebase(questionId)
         .then(() => {
             let question = this.state.currentEvent[questionId];
-            question.closed = true;
-            question.live = true;
+            if (condition = 'stop') question.closed = true;
+            question.live = !question.live;
             this.editQuestion(question)
         })
     }
@@ -82,10 +82,11 @@ class CurrentEvent extends Component {
     sendAnswer = (answer, questionId) => {
         answer = `ans_${answer}`
         return postAnswerToFirebase(answer, questionId, this.props.currentEventID)
-        .then(() => {
-            console.log(`Question ${questionId} answer set!`)
-            let question = this.setState.currentEvent[questionId];
-            question.closed = true;
+        .then((question_id) => {
+            console.log(`Question ${question_id} answer set!`)
+            let question = this.state.currentEvent[question_id];
+            question.complete = true;
+            question.answer = answer;
             this.editQuestion(question)
         })
         .catch(err => {
