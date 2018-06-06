@@ -1,21 +1,27 @@
 #current-event-notes {
     height: 47vh;
-    border: 1px solid black;
     margin: 5px 0;
 }
 
 #current-event-notes-pannel {
     width: 95%;
     height: 40vh;
-    border: 1px solid black;
+    color: red;
+    background-color: lightgray;
+    border: 10px solid black;
     border-radius: 10px;
     padding: 5px 10px;
     margin: 10px auto;
     overflow-y: auto;
 }
 
+.note {
+    border-bottom: 1px solid black;
+    padding: 8px 0;
+}
+
 #current-event-notes-input {
-    width: 95%;
+    width: 80%;
     display: grid;
     grid-template-columns: 89% 10%;
     grid-gap: 5px;
@@ -35,3 +41,4 @@
     display: block;
     margin: 0 auto;
 }
+

@@ -2,12 +2,31 @@
     width: 98vw;
     height: 5vh;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: 50% 50%;
     margin: 5px 10px;
 }
 
-#nav button {
-    width: 95%;
-    display: block;
-    margin: auto;
+#nav-links {
+    margin: 5px;
 }
+
+#nav-links button {
+    margin: 0 5px;
+}
+
+#logo {
+    width: 20%;
+    height: 5vh;
+    background-color: pink;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(5, 25px); 
+    margin: 0 auto;
+    padding: 2px 10px;
+}
+
+.letter {
+    width: 25px;
+    height: 5vh;
+}
+

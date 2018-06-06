@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import './css/App.css'
+import './css/App.css';
 
 import {reduceToEventArray} from './Functions/index';
 import {getAllEventsFromFirebase, postEventToFirebase, deleteEventFromFirebase, postCurrentEventToFirebase} from './Functions/Firebase';
@@ -20,7 +20,7 @@ class App extends Component {
       events: [],
       comingSoon: [],
       currentEvent: {},
-      currentEventID: '',
+      currentEventID: 'IWqslccA2Apig0N544A0',
       liveEvent: false,
       notes: []
     };

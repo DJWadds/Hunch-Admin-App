@@ -77,7 +77,7 @@ export function postCurrentEventToFirebase (event) {
                 live: false,
                 complete: false,
                 answers_num: 3,
-                answer: ''
+                answer: false
             };
         currentEvent[`answers_for_Q${i}`] = {};
     }
