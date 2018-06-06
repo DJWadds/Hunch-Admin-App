@@ -94,13 +94,14 @@ class App extends Component {
     }
 
     makeEventLive = (event, index) => {
+      localStorage.setItem('currentEvent', JSON.stringify(event));
       return postCurrentEventToFirebase(event)
       .then(data => {
         const currentEvent = data.currentEvent;
         const currentEventID = data.currentEventId;
-        // this.deleteEvent(event)
-        localStorage.setItem('currentEventID', currentEventID)
-        this.setState({currentEvent, currentEventID, liveEvent : true})
+        this.deleteEvent(event);
+        localStorage.setItem('currentEventID', currentEventID);
+        this.setState({currentEvent, currentEventID, liveEvent : true});
       })
       .catch(err => {
         console.log(err)
@@ -110,7 +111,8 @@ class App extends Component {
 
     checkForID = () => {
       const currentEventID = localStorage.getItem('currentEventID');
-      if (currentEventID) this.setState({currentEventID});
+      const currentEvent = JSON.parse(localStorage.getItem('currentEvent'));
+      if (currentEventID) this.setState({currentEventID, currentEvent});
     }
 
     addEventNote = (note) => {
@@ -120,7 +122,8 @@ class App extends Component {
     }
 
     closeEvent = () => {
-      localStorage.setItem('currentEventID', null)
+      localStorage.setItem('currentEventID', '')
+      localStorage.setItem('currentEvent', '')
       this.setState({
         currentEvent : {},
         currentEventID : "",
