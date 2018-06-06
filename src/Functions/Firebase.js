@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {
+const {
     getAllEventsFromFirebaseURL,
     postEventToFirebaseURL,
     deleteEventFromFirebaseURL,
@@ -9,7 +9,7 @@ import {
     moveAllQuestionsToCurrentQuestionsCollectionInFirebaseURL,
     makeQuestionLiveInFirebaseURL,
     postAnswerToFirebaseURL
-    } from '../config/index';
+} = require('../config/index' || process.env) ;
 
 /* AVAILABLE FUNCTIONS
 1 - GET ALL EVENTS FROM FIREBASE
