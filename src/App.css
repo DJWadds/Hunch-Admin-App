@@ -17,3 +17,9 @@ img {
 #nav button {
   margin: 0 5px;
 }
+
+@media(min-width: 1080px) {
+#app {
+      background-color: aqua;
+}   
+}

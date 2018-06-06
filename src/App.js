@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import './css/App.css'
+import './css/App.css';
 
 import {reduceToEventArray} from './Functions/index';
 import {getAllEventsFromFirebase, postEventToFirebase, deleteEventFromFirebase, postCurrentEventToFirebase} from './Functions/Firebase';
@@ -14,6 +14,7 @@ import CurrentEvent from './Pages/CurrentEvent';
 class App extends Component {
     componentDidMount () {
       this.getAllEvents();
+      this.checkForID();
     }
     state = {
       admin: true,
@@ -93,17 +94,25 @@ class App extends Component {
     }
 
     makeEventLive = (event, index) => {
+      localStorage.setItem('currentEvent', JSON.stringify(event));
       return postCurrentEventToFirebase(event)
       .then(data => {
         const currentEvent = data.currentEvent;
         const currentEventID = data.currentEventId;
-        // this.deleteEvent(event)
-        this.setState({currentEvent, currentEventID, liveEvent : true})
+        this.deleteEvent(event);
+        localStorage.setItem('currentEventID', currentEventID);
+        this.setState({currentEvent, currentEventID, liveEvent : true});
       })
       .catch(err => {
         console.log(err)
         return null
       })
+    }
+
+    checkForID = () => {
+      const currentEventID = localStorage.getItem('currentEventID');
+      const currentEvent = JSON.parse(localStorage.getItem('currentEvent'));
+      if (currentEventID) this.setState({currentEventID, currentEvent});
     }
 
     addEventNote = (note) => {
@@ -113,6 +122,8 @@ class App extends Component {
     }
 
     closeEvent = () => {
+      localStorage.setItem('currentEventID', '')
+      localStorage.setItem('currentEvent', '')
       this.setState({
         currentEvent : {},
         currentEventID : "",
