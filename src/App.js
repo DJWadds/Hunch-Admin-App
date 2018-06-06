@@ -14,13 +14,14 @@ import CurrentEvent from './Pages/CurrentEvent';
 class App extends Component {
     componentDidMount () {
       this.getAllEvents();
+      this.checkForID();
     }
     state = {
       admin: true,
       events: [],
       comingSoon: [],
       currentEvent: {},
-      currentEventID: 'IWqslccA2Apig0N544A0',
+      currentEventID: '',
       liveEvent: false,
       notes: []
     };
@@ -98,12 +99,18 @@ class App extends Component {
         const currentEvent = data.currentEvent;
         const currentEventID = data.currentEventId;
         // this.deleteEvent(event)
+        localStorage.setItem('currentEventID', currentEventID)
         this.setState({currentEvent, currentEventID, liveEvent : true})
       })
       .catch(err => {
         console.log(err)
         return null
       })
+    }
+
+    checkForID = () => {
+      const currentEventID = localStorage.getItem('currentEventID');
+      if (currentEventID) this.setState({currentEventID});
     }
 
     addEventNote = (note) => {
@@ -113,6 +120,7 @@ class App extends Component {
     }
 
     closeEvent = () => {
+      localStorage.setItem('currentEventID', null)
       this.setState({
         currentEvent : {},
         currentEventID : "",
