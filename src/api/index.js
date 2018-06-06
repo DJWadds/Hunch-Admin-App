@@ -1,0 +1,9 @@
+export const getAllEventsFromFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/getAllEvents';
+export const postEventToFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/addEventToEvents';
+export const deleteEventFromFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/deleteEvent';
+export const postCurrentEventToFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/createCurrentEvent';
+export const getCurrentEventFromFirebaseUsingIdURL = 'https://us-central1-test-database-92434.cloudfunctions.net/CurrentEventById';
+export const updateQuestionInFireBaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/updateQuestion';
+export const moveAllQuestionsToCurrentQuestionsCollectionInFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/questionsToCurrentQuestions';
+export const makeQuestionLiveInFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/changeLiveStatus';
+export const postAnswerToFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/fulfillQuestion';
