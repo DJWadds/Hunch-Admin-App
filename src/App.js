@@ -20,9 +20,9 @@ class App extends Component {
       events: [],
       comingSoon: [],
       currentEvent: {},
-      currentEventID: '',
+      currentEventID: 'gWgLHI2KSPvSe9COSu41',
       liveEvent: false,
-      notes: []
+      notes: [],
     };
     render() {
       const {admin, events, currentEvent, currentEventID, liveEvent, notes, comingSoon} = this.state;
@@ -120,6 +120,7 @@ class App extends Component {
         notes : []
       })
     }
+
 }
 
 export default App;

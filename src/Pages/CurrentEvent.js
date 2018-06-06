@@ -17,7 +17,9 @@ class CurrentEvent extends Component {
     state = {
         loading: true,
         currentEvent: {},
-        nextQuestion: 1
+        nextQuestion: 1,
+        userAnswers: {},
+        currentQuestion: 0,
     };
     render() {
     const {
@@ -26,6 +28,8 @@ class CurrentEvent extends Component {
     } = this.props;
     const {currentEvent, nextQuestion} = this.state;
     const {editQuestion, eventClose, makeQuestionLive, sendAnswer} = this;
+    const results = this.state.userAnswers;
+    const currentQuestion = this.state.currentQuestion;
 
     if (currentEventID.length < 1) return <div> No Current Event </div>
     return (
@@ -37,7 +41,7 @@ class CurrentEvent extends Component {
             </div>
             <div id="current-event-right">
                 <Notes notes={notes} addEventNote={addEventNote}/>
-                <Graphs />
+                <Graphs results={results} currentQuestion={currentQuestion} />
             </div>
         
         </section>
@@ -82,12 +86,14 @@ class CurrentEvent extends Component {
     sendAnswer = (answer, questionId) => {
         answer = `ans_${answer}`
         return postAnswerToFirebase(answer, questionId, this.props.currentEventID)
-        .then((question_id) => {
+        .then((responseObj) => {
+            const {question_id, userAnswers} = responseObj;
             console.log(`Question ${question_id} answer set!`)
             let question = this.state.currentEvent[question_id];
             question.complete = true;
             question.answer = answer;
             this.editQuestion(question)
+            this.answeredQuestionGraphs(userAnswers, question_id);
         })
         .catch(err => {
             console.log(err)
@@ -98,6 +104,15 @@ class CurrentEvent extends Component {
         this.setState({currentEvent : {}})
         this.props.closeEvent();
     }
+
+    answeredQuestionGraphs = (userAnswers, question_id) => {
+        console.log(userAnswers);
+        const results = userAnswers.results;
+        this.setState({
+          userAnswers: results,
+          currentQuestion: question_id
+        })
+      }
 
 
 }

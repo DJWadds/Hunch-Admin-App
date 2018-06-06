@@ -10,6 +10,7 @@ import {
     makeQuestionLiveInFirebaseURL,
     postAnswerToFirebaseURL
     } from '../config/index';
+import GraphTemp from '../Components/Generic/GraphTemp';
 
 /* AVAILABLE FUNCTIONS
 1 - GET ALL EVENTS FROM FIREBASE
@@ -137,8 +138,13 @@ export function makeQuestionLiveInFirebase (questionNo) {
 // 9 - POST ANSWER TO FIREBASE
 export function postAnswerToFirebase (answer, question, event_id) {
     return axios.post(postAnswerToFirebaseURL, {correct: answer, question: `${question}`, event_id}) 
-    .then(() => {
-        return question
+    .then((res) => {
+        console.log(res.data);
+        const userAnswers = res.data;
+        // const userAnswers = {
+
+        // }
+        return {question_id :question, userAnswers}
     })
     .catch(err => {
         return null
