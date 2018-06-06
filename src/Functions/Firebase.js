@@ -9,7 +9,7 @@ const {
     moveAllQuestionsToCurrentQuestionsCollectionInFirebaseURL,
     makeQuestionLiveInFirebaseURL,
     postAnswerToFirebaseURL
-} = require('../config/index' || process.env) ;
+} = require('../config/index' ) || process.env;
 
 /* AVAILABLE FUNCTIONS
 1 - GET ALL EVENTS FROM FIREBASE
