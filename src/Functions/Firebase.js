@@ -75,7 +75,9 @@ export function postCurrentEventToFirebase (event) {
                 timeToSet: setDateAndTime,
                 closed: false,
                 live: false,
-                answers_num: 3
+                complete: false,
+                answers_num: 3,
+                answer: ''
             };
         currentEvent[`answers_for_Q${i}`] = {};
     }
@@ -134,10 +136,9 @@ export function makeQuestionLiveInFirebase (questionNo) {
 
 // 9 - POST ANSWER TO FIREBASE
 export function postAnswerToFirebase (answer, question, event_id) {
-    console.log({correct: answer, question: `${question}`, event_id})
-    axios.post(postAnswerToFirebaseURL, {correct: answer, question: `${question}`, event_id}) 
+    return axios.post(postAnswerToFirebaseURL, {correct: answer, question: `${question}`, event_id}) 
     .then(() => {
-        return true
+        return question
     })
     .catch(err => {
         return null

@@ -22,9 +22,8 @@ class Question extends Component {
         question, liveQuestion,
         makeQuestionLive, sendAnswer
     } = this.props;
-    console.log(this.props.question.question)
     const {questionInput, answerInput} = this.state.questionInputInfo;
-    const {updateInput, setUpdateQuestion} = this;
+    const {updateInput, setUpdateQuestion, buttonToDisplayFunc} = this;
 
     const date = new Date(question.timeToSet)
     let hours = date.getHours();
@@ -33,6 +32,8 @@ class Question extends Component {
     if (minutes < 10) minutes = `0${minutes}`;
     const time = `${hours}:${minutes}`;
 
+    const buttonToDisplay = buttonToDisplayFunc();
+    console.log(buttonToDisplay)
     return (<div className="current-event-questions-question">
         <h3>Question {question.id} </h3>
         <div> {question.question} </div>
@@ -48,17 +49,18 @@ class Question extends Component {
             
         </div>
         <div className="current-event-questions-question-time"> Time: {time} (24hr) </div>
-        {question.live ? 
-        <div className="current-event-questions-question-live-question">
-            <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id)}>Un-live</button>   
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}ans`} data-whatever="@fat">Answer</button>
+
+        <div className="current-event-questions-question-buttons">
+            {buttonToDisplay === 0 && 
+                <div className="current-event-questions-question-live-question">
+                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}`} data-whatever="@fat">Edit</button>
+                    <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id, 'live')}>live</button>   
+                </div>
+            }
+            {buttonToDisplay === 1 && <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id, 'stop')}>Stop</button>}
+            {buttonToDisplay === 2 && <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}ans`} data-whatever="@fat">Answer</button>}
+            {buttonToDisplay === 3 && <div> Answer: {question[question.answer]} </div>}
         </div>
-        : 
-        <div className="current-event-questions-question-live-question">
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}`} data-whatever="@fat">Edit</button>
-            {!liveQuestion && <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id)}>Live</button>}
-        </div>        
-        }
 
         <div className="modal fade" id={`question${question.id}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
@@ -127,6 +129,14 @@ class Question extends Component {
         let questionInputInfo = this.state.questionInputInfo;
         questionInputInfo[context] = event.target.value;
         this.setState({questionInputInfo});
+    }
+
+    buttonToDisplayFunc = () => {
+        const question = this.props.question;
+        if (question.live) return 1;
+        if (question.complete) return 3;
+        if (question.closed) return 2;
+        return 0;
     }
 
     setUpdateQuestion = () => {
