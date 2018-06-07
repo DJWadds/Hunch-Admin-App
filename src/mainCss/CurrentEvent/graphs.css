@@ -1,5 +1,23 @@
 #current-event-graphs {
     height: 52vh;
-    border: 1px solid black;
     border-radius: 15px;
+}
+
+#current-event-graphs h2 {
+    text-align: center;
+    text-decoration: underline;
+    padding: 5px;
+    margin-top: 5px; 
+}
+
+#graph-buttons {
+    width: 205px;
+    display: grid;
+    grid-template-columns: repeat(2, 100px);
+    grid-gap: 5px;
+    margin: 5px auto;
+}
+
+#graph-buttons button {
+    width: 100px;
 }

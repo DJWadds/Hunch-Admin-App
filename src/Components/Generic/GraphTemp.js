@@ -4,20 +4,19 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
 const GraphTemp = ({graphData}) => {
-  console.log(graphData);
+  console.log(graphData)
  // const { albumNamesArr, collectionPriceArr, trackCountArr } = chartData;
- const {ans_a, ans_b, ans_c, answers_num, correct} = graphData;
+ const {ans_a, ans_b, ans_c} = graphData;
  //const example = [['pass', 'fail'], [7, 4]]
- console.log(ans_a);
  
- if (Array.isArray(ans_a)) {
+ if (!ans_a.length === undefined) {
   //const results = [ans_a.length, ans_b.length, ans_c.length]
     const data = {
       labels: [
         'Answer A', 'Answer B', 'Answer C'
       ],
       datasets: [{
-        data: [1, 6, 19],
+        data: [ans_a.length, ans_b.length, ans_c.length],
         backgroundColor: [
         '#FF6384',
         '#36A2EB',
@@ -32,14 +31,13 @@ const GraphTemp = ({graphData}) => {
     };
     return (
       <div  className='chart-container'>
-        <h2 className='chart-header'>User Answers</h2> 
         <div className='chart'>
         <Doughnut data={data} />
         </div>
       </div>
     );
   } else {
-    return <h1>hi</h1>;
+    return <h1>No Graph</h1>;
   }
 };
 

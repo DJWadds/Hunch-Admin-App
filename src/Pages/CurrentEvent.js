@@ -7,7 +7,7 @@ import Clock from '../Components/Generic/Clock';
 import Information from '../Components/CurrentEvent/Information';
 import Questions from '../Components/CurrentEvent/Questions';
 import Notes from '../Components/CurrentEvent/Notes';
-// import Graphs from '../Components/CurrentEvent/Graphs';
+import Graphs from '../Components/CurrentEvent/Graphs';
 import Button from '../Components/Generic/Button';
 
 class CurrentEvent extends Component {
@@ -39,7 +39,7 @@ class CurrentEvent extends Component {
                 <Questions currentEvent={currentEvent} editQuestion={editQuestion} makeQuestionLive={makeQuestionLive} sendAnswer={sendAnswer}/>
             <div id="current-event-bottom">
                 <Notes notes={notes} addEventNote={addEventNote}/>
-                {/* <Graphs results={results} currentQuestion={currentQuestion} /> */}
+                <Graphs currentEvent={currentEvent} currentQuestion={currentQuestion} />
             </div>
             <div id="current-event-information-buttons">
                 <button type="button" className="btn btn-warning" onClick={eventStart}>Start Event</button>
