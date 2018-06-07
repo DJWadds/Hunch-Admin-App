@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/AllEvents.css';
+// import '../css/AllEvents.css';
 
 import AddEvent from '../Components/Generic/AddEvent';
 import Event from '../Components/Generic/Event';

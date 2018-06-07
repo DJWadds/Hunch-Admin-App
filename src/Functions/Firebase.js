@@ -60,6 +60,7 @@ export function deleteEventFromFirebase (event) {
 // 4 - POST CURRENT EVENT TO FIRBASE
 export function postCurrentEventToFirebase (event) {
     let currentEvent = {...event};
+    currentEvent.total_users = 0;
     currentEvent.questions = 6;
     let date = new Date(event.date);
     date.setHours(23);

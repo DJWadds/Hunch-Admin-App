@@ -1,4 +1,4 @@
-#all-events {
+/* #all-events {
     width: 98vw;
     display: grid;
     margin: 0 10px 5px;
@@ -39,4 +39,4 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 5px;
-}
+} */
