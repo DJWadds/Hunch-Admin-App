@@ -16,7 +16,7 @@ class AllEvents extends Component {
             <h2> Current Event </h2>
             {currentEventID.length > 0 ? 
                 <AllEventsCurrentEvent currentEvent={currentEvent} />
-                : <h2 id="all-events-head-no-current-event"> No Current Event </h2>}
+                : <h3 id="all-events-head-no-current-event"> No Current Event </h3>}
         </div>
          
 

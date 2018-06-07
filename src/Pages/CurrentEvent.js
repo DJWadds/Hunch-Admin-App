@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import '../css/CurrentEvent.css';
+import '../mainCss/Pages/currentEvent.css';
 import {getCurrentEventFromFirebaseUsingId, updateQuestionInFireBase, makeQuestionLiveInFirebase, postAnswerToFirebase} from '../Functions/Firebase';
 import {changeQuestion, findNextQuestion} from '../Functions/index';
 
@@ -35,11 +35,9 @@ class CurrentEvent extends Component {
     return (
         !this.state.loading &&
         <section id="current-event">
-            <div id="current-event-left">
-                <Information currentEvent={currentEvent} eventClose={eventClose} nextQuestion={nextQuestion}/>
+                <Information currentEvent={currentEvent} eventClose={eventClose} nextQuestion={nextQuestion} results={results}/>
                 <Questions currentEvent={currentEvent} editQuestion={editQuestion} makeQuestionLive={makeQuestionLive} sendAnswer={sendAnswer}/>
-            </div>
-            <div id="current-event-right">
+            <div id="current-event-bottom">
                 <Notes notes={notes} addEventNote={addEventNote}/>
                 <Graphs results={results} currentQuestion={currentQuestion} />
             </div>

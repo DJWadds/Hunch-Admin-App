@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/CurrentEvent/Questions.css';
+import '../../mainCss/CurrentEvent/questions.css';
 
 import Question from '../Generic/Question';
 

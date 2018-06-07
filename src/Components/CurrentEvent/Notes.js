@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/CurrentEvent/Notes.css';
+import '../../mainCss/CurrentEvent/notes.css';
 
 class Notes extends Component {
     state = {
