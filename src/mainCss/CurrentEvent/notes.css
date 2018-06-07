@@ -36,7 +36,9 @@
 }
 
 #current-event-notes-input button {
+    width: 75px;
     height: 4vh;
+    color: black;
     display: block;
     margin: 0 auto;
 }

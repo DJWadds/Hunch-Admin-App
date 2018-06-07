@@ -13,9 +13,19 @@
 #current-event button {
     display: block;
     background-color: aquamarine;
+    border: 1px solid black;
     border-radius: 10px;
     padding: 5px;
     margin: 5px auto;
+}
+
+#current-event-information-buttons {
+    width: 200px;
+    display: grid;
+    grid-template-columns: repeat(2, 100px);
+    grid-gap: 5px;
+    padding: 5px;
+    margin: 0 auto;
 }
 
 @media(min-width: 800px) {

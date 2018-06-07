@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../mainCss/Pages/currentEvent.css';
-import {getCurrentEventFromFirebaseUsingId, updateQuestionInFireBase, makeQuestionLiveInFirebase, postAnswerToFirebase} from '../Functions/Firebase';
+import {getCurrentEventFromFirebaseUsingId, updateQuestionInFireBase, makeQuestionLiveInFirebase, postAnswerToFirebase, startEvent} from '../Functions/Firebase';
 import {findNextQuestion} from '../Functions/index';
 
 import Clock from '../Components/Generic/Clock';
@@ -28,9 +28,8 @@ class CurrentEvent extends Component {
         addEventNote
     } = this.props;
     const {currentEvent, currentQuestion, showLeaderboard} = this.state;
-    const {editQuestion, eventClose, makeQuestionLive, sendAnswer, switchShowLeaderboard} = this;
+    const {editQuestion, eventClose, eventStart, makeQuestionLive, sendAnswer, switchShowLeaderboard} = this;
     if (currentEventID.length < 1) return <div> No Current Event </div>
-    console.log(showLeaderboard)
     return (
         !this.state.loading &&
         <section id="current-event">
@@ -43,6 +42,7 @@ class CurrentEvent extends Component {
                 {/* <Graphs results={results} currentQuestion={currentQuestion} /> */}
             </div>
             <div id="current-event-information-buttons">
+                <button type="button" className="btn btn-warning" onClick={eventStart}>Start Event</button>
                 <button type="button" className="btn btn-warning" onClick={eventClose}>Stop Event</button>
             </div>
         </section>
@@ -109,6 +109,13 @@ class CurrentEvent extends Component {
 
     switchShowLeaderboard = () => {
         this.setState({showLeaderboard : !this.state.showLeaderboard})
+    }
+
+    eventStart = () => {
+        startEvent(this.props.currentEventID)
+        .then(totalUsers => {
+            console.log(totalUsers)
+        })
     }
 }
 

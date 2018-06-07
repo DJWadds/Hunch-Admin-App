@@ -1,0 +1,14 @@
+#event-date-input {
+    display: grid;
+    grid-template-columns: 60px 30px 60px 30px 60px;
+}
+
+#event-time-input {
+    display: grid;
+    grid-template-columns: 60px 30px 60px;
+}
+
+.symbol {
+    text-align: center;
+    font-size: 2em;
+}

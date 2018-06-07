@@ -8,7 +8,8 @@ import {
     updateQuestionInFireBaseURL,
     moveAllQuestionsToCurrentQuestionsCollectionInFirebaseURL,
     makeQuestionLiveInFirebaseURL,
-    postAnswerToFirebaseURL
+    postAnswerToFirebaseURL,
+    startEventURL
 } from '../api/index';
 
 /* AVAILABLE FUNCTIONS
@@ -147,4 +148,11 @@ export function postAnswerToFirebase (answer, question, event_id) {
     .catch(err => {
         return null
     })
-}   
+} 
+
+export function startEvent (currentEventID) {
+    axios.get(`${startEventURL}?event=${currentEventID}`)
+    .then(res => {
+        return res.data.total_users;
+    })
+}
