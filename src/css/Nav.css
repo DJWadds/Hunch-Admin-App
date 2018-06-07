@@ -1,13 +1,31 @@
-#nav {
+/* #nav {
     width: 98vw;
     height: 5vh;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: 50% 50%;
     margin: 5px 10px;
 }
 
-#nav button {
-    width: 95%;
-    display: block;
-    margin: auto;
+#nav-links {
+    margin: 5px;
 }
+
+#nav-links button {
+    margin: 0 5px;
+}
+
+.letter {
+    width: 25px;
+    height: 5vh;
+} */
+
+#logo {
+    width: 300px;
+    height: 70px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border: 1px solid black;
+    padding: 5% 5px;
+    margin: 0 auto;
+}
+

@@ -14,15 +14,14 @@ class Question extends Component {
             ans_cInput: "",
             timeToSetInputHour: "",
             timeToSetInputMinute: "",
-            answerInput: ""
         }
     };
     render() {
     const {
-        question, liveQuestion,
+        question,
         makeQuestionLive, sendAnswer
     } = this.props;
-    const {questionInput, answerInput} = this.state.questionInputInfo;
+    const {questionInput} = this.state.questionInputInfo;
     const {updateInput, setUpdateQuestion, buttonToDisplayFunc} = this;
 
     const date = new Date(question.timeToSet)
@@ -33,33 +32,41 @@ class Question extends Component {
     const time = `${hours}:${minutes}`;
 
     const buttonToDisplay = buttonToDisplayFunc();
-    console.log(buttonToDisplay)
-    return (<div className="current-event-questions-question">
-        <h3>Question {question.id} </h3>
-        <div> {question.question} </div>
+    return (<div className="question">
+        <h3> Question {question.id} </h3>
+        <div id="question-question"> {question.question} </div>
         <h3> Choices </h3>
-        <div className="current-event-questions-question-choices">
-            <div className="current-event-questions-question-choices-choice"> {question.ans_a}</div>
-            <div className="current-event-questions-question-choices-choice"> {question.ans_b}</div> 
+        <div className="question-choices">
+            <div className="question-choices-choice" 
+                id={question.answer ? question.answer === 'ans_a' ? 'correct-answer' : 'wrong-answer'
+                    : 'a'}> {question.ans_a}</div>
+            <div className="question-choices-choice" 
+                id={question.answer ? question.answer === 'ans_b' ? 'correct-answer' : 'wrong-answer' 
+                    : 'a'}> {question.ans_b}</div> 
             {question.ans_c ?
-                <div className="current-event-questions-question-choices-choice"> {question.ans_c}</div>
+                <div className="question-choices-choice" 
+                    id={question.answer ? question.answer === 'ans_c' ? 'correct-answer' : 'wrong-answer'
+                        : 'a'}> {question.ans_c}</div>
                 :
-                <div className="current-event-questions-question-choices-choice"> n/a</div>
+                <div className="question-choices-choice" id="no-choice"> n/a</div>
             }  
             
         </div>
-        <div className="current-event-questions-question-time"> Time: {time} (24hr) </div>
+        <div className="question-time"> Time: {time} (24hr) </div>
 
-        <div className="current-event-questions-question-buttons">
+        <div className="question-buttons">
             {buttonToDisplay === 0 && 
-                <div className="current-event-questions-question-live-question">
+                <div className="question-live-question">
                     <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}`} data-whatever="@fat">Edit</button>
                     <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id, 'live')}>live</button>   
                 </div>
             }
             {buttonToDisplay === 1 && <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id, 'stop')}>Stop</button>}
-            {buttonToDisplay === 2 && <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#question${question.id}ans`} data-whatever="@fat">Answer</button>}
-            {buttonToDisplay === 3 && <div> Answer: {question[question.answer]} </div>}
+            {buttonToDisplay === 2 && <div>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => sendAnswer('ans_a', question.id)}>{question.ans_a}</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => sendAnswer('ans_b', question.id)}>{question.ans_b}</button>
+                {question.answers_num === 3 && <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => sendAnswer('ans_c', question.id)}>{question.ans_c}</button>}
+            </div>}
         </div>
 
         <div className="modal fade" id={`question${question.id}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -98,26 +105,6 @@ class Question extends Component {
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={setUpdateQuestion}>Change</button>
-                </div>
-            </div>
-        </div>
-        </div>
-
-        <div className="modal fade" id={`question${question.id}ans`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-            <div className="modal-content">
-                <div className="modal-body">
-                    <form>
-                        <div className="form-group">
-                            <label htmlFor="question-answer" className="col-form-label">Answer:</label>
-                            <input type="text" className="form-control" id="event-name" onChange={(event) => updateInput(event, 'answerInput')}/>
-                            <small id="answerHelp" className="form-text text-muted">a, b or c</small>
-                        </div>
-                    </form>
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => sendAnswer(answerInput, question.id)}>Submit</button>
                 </div>
             </div>
         </div>

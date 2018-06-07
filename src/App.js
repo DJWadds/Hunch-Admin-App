@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import './css/App.css'
+import './mainCss/index.css';
 
 import {reduceToEventArray} from './Functions/index';
 import {getAllEventsFromFirebase, postEventToFirebase, deleteEventFromFirebase, postCurrentEventToFirebase} from './Functions/Firebase';
@@ -14,6 +14,7 @@ import CurrentEvent from './Pages/CurrentEvent';
 class App extends Component {
     componentDidMount () {
       this.getAllEvents();
+      this.checkForID();
     }
     state = {
       admin: true,
@@ -27,13 +28,14 @@ class App extends Component {
     render() {
       const {admin, events, currentEvent, currentEventID, liveEvent, notes, comingSoon} = this.state;
       const {addEvent, makeEventLive, addEventNote, editQuestion, closeEvent, deleteEvent} = this;
+
     return (<Router>
       <div id="app">
         {admin ?  
           <Nav />
           : <Login login={this.login} />}
         <Switch>
-            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} notes={notes} currentEventID={currentEventID} addEventNote={addEventNote} editQuestion={editQuestion} closeEvent={closeEvent}/>}/>
+            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} admin={admin} notes={notes} currentEventID={currentEventID} addEventNote={addEventNote} editQuestion={editQuestion} closeEvent={closeEvent}/>}/>
             <Route exact path="/events/all" render={() => <AllEvents admin={admin} events={events} currentEvent={currentEvent} 
                   currentEventID={currentEventID} liveEvent={liveEvent} addEvent={addEvent} makeEventLive={makeEventLive} comingSoon={comingSoon} deleteEvent={deleteEvent}/>} />
         </Switch>
@@ -93,17 +95,25 @@ class App extends Component {
     }
 
     makeEventLive = (event, index) => {
+      localStorage.setItem('currentEvent', JSON.stringify(event));
       return postCurrentEventToFirebase(event)
       .then(data => {
         const currentEvent = data.currentEvent;
         const currentEventID = data.currentEventId;
-        // this.deleteEvent(event)
-        this.setState({currentEvent, currentEventID, liveEvent : true})
+        this.deleteEvent(event);
+        localStorage.setItem('currentEventID', currentEventID);
+        this.setState({currentEvent, currentEventID, liveEvent : true});
       })
       .catch(err => {
         console.log(err)
         return null
       })
+    }
+
+    checkForID = () => {
+      const currentEventID = localStorage.getItem('currentEventID');
+      const currentEvent = JSON.parse(localStorage.getItem('currentEvent'));
+      if (currentEventID) this.setState({currentEventID, currentEvent});
     }
 
     addEventNote = (note) => {
@@ -113,6 +123,8 @@ class App extends Component {
     }
 
     closeEvent = () => {
+      localStorage.setItem('currentEventID', '')
+      localStorage.setItem('currentEvent', '')
       this.setState({
         currentEvent : {},
         currentEventID : "",

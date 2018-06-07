@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/CurrentEvent.css';
+// import '../css/CurrentEvent.css';
 import {getCurrentEventFromFirebaseUsingId, updateQuestionInFireBase, makeQuestionLiveInFirebase, postAnswerToFirebase} from '../Functions/Firebase';
 import {changeQuestion, findNextQuestion} from '../Functions/index';
 

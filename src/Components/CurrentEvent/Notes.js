@@ -13,7 +13,7 @@ class Notes extends Component {
         <section id="current-event-notes">
             <div id="current-event-notes-pannel">
                 {notes.map((note, index) => {
-                    return <div key={index}> {note} </div>
+                    return <div key={index} className='note'> {note} </div>
                 })}
             </div>
             <div id="current-event-notes-input">

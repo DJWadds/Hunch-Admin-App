@@ -13,7 +13,6 @@ class Questions extends Component {
     }
     render() {
         const {
-            currentEvent,
             editQuestion, makeQuestionLive, sendAnswer
         } = this.props;
         const {questions, liveQuestion} = this.state;

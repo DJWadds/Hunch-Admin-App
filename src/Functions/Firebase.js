@@ -9,8 +9,7 @@ import {
     moveAllQuestionsToCurrentQuestionsCollectionInFirebaseURL,
     makeQuestionLiveInFirebaseURL,
     postAnswerToFirebaseURL
-    } from '../config/index';
-import GraphTemp from '../Components/Generic/GraphTemp';
+} from '../api/index';
 
 /* AVAILABLE FUNCTIONS
 1 - GET ALL EVENTS FROM FIREBASE
@@ -61,6 +60,7 @@ export function deleteEventFromFirebase (event) {
 // 4 - POST CURRENT EVENT TO FIRBASE
 export function postCurrentEventToFirebase (event) {
     let currentEvent = {...event};
+    currentEvent.total_users = 0;
     currentEvent.questions = 6;
     let date = new Date(event.date);
     date.setHours(23);
@@ -78,7 +78,7 @@ export function postCurrentEventToFirebase (event) {
                 live: false,
                 complete: false,
                 answers_num: 3,
-                answer: ''
+                answer: false
             };
         currentEvent[`answers_for_Q${i}`] = {};
     }

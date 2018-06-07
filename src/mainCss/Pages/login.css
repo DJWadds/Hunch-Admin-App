@@ -7,7 +7,10 @@
     margin: 10% auto;
 }
 
-#logo {
-    max-width: 250px;
-    margin: 0 auto;
+#login-logo {
+    max-width: 150px;
+    height: 50px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 0 auto 10px;
 }
