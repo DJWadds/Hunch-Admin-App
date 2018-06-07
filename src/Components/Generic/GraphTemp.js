@@ -17,7 +17,7 @@ const GraphTemp = ({graphData}) => {
         'Answer A', 'Answer B', 'Answer C'
       ],
       datasets: [{
-        data: [2, 5, 9],
+        data: [1, 6, 19],
         backgroundColor: [
         '#FF6384',
         '#36A2EB',
