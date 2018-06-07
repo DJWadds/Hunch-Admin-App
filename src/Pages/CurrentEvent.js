@@ -84,7 +84,6 @@ class CurrentEvent extends Component {
     }
 
     sendAnswer = (answer, questionId) => {
-        answer = `ans_${answer}`
         return postAnswerToFirebase(answer, questionId, this.props.currentEventID)
         .then((responseObj) => {
             const {question_id, userAnswers} = responseObj;
