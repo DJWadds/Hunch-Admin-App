@@ -7,7 +7,8 @@ import AllEventsCurrentEvent from '../Components/Generic/AllEventsCurrentEvent';
 
 class AllEvents extends Component {
     render() {
-    const {events, comingSoon, currentEvent, currentEventID, liveEvent, addEvent, makeEventLive, deleteEvent} = this.props;
+    const {admin, events, comingSoon, currentEvent, currentEventID, liveEvent, addEvent, makeEventLive, deleteEvent} = this.props;
+    if (!admin) return null;
     return (<section id="all-events">
     <div id="all-events-head">
 

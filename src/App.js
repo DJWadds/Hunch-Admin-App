@@ -17,7 +17,7 @@ class App extends Component {
       this.checkForID();
     }
     state = {
-      admin: true,
+      admin: false,
       events: [],
       comingSoon: [],
       currentEvent: {},
@@ -34,7 +34,7 @@ class App extends Component {
           <Nav />
           : <Login login={this.login} />}
         <Switch>
-            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} notes={notes} currentEventID={currentEventID} addEventNote={addEventNote} editQuestion={editQuestion} closeEvent={closeEvent}/>}/>
+            <Route path="/events/currentEvent" render={(props) => <CurrentEvent {...props} admin={admin} notes={notes} currentEventID={currentEventID} addEventNote={addEventNote} editQuestion={editQuestion} closeEvent={closeEvent}/>}/>
             <Route exact path="/events/all" render={() => <AllEvents admin={admin} events={events} currentEvent={currentEvent} 
                   currentEventID={currentEventID} liveEvent={liveEvent} addEvent={addEvent} makeEventLive={makeEventLive} comingSoon={comingSoon} deleteEvent={deleteEvent}/>} />
         </Switch>
