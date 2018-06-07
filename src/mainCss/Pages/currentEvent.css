@@ -1,0 +1,25 @@
+#current-event-bottom {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 5px;
+    padding: 5px;
+}
+#clock {
+    text-align: center;
+    font-size: 2em;
+    padding: 5px;
+}
+
+#current-event button {
+    display: block;
+    background-color: aquamarine;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px auto;
+}
+
+@media(min-width: 800px) {
+    #current-event-bottom {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

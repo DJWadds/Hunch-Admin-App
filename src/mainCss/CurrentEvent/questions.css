@@ -1,0 +1,19 @@
+#current-event-questions {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+@media(min-width: 600px) {
+    #current-event-questions {
+        grid-template-columns: repeat(2, 1fr);
+    } 
+}
+
+@media(min-width: 980px) {
+    #current-event-questions {
+        grid-template-columns: repeat(3, 1fr);
+    } 
+}

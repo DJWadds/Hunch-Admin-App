@@ -111,7 +111,6 @@ class App extends Component {
     }
 
     checkForID = () => {
-      console.log('checkForID')
       const currentEventID = localStorage.getItem('currentEventID');
       let currentEvent = JSON.parse(localStorage.getItem('currentEvent'));
       if (!currentEvent) currentEvent = ''
