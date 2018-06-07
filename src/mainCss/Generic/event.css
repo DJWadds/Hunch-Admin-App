@@ -1,0 +1,15 @@
+.event {
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.event div {
+    margin: 5px;
+}
+
+.event button {
+    margin: 5px;
+}
+
