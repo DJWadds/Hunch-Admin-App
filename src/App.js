@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import './css/App.css';
+import './mainCss/index.css';
 
 import {reduceToEventArray} from './Functions/index';
 import {getAllEventsFromFirebase, postEventToFirebase, deleteEventFromFirebase, postCurrentEventToFirebase} from './Functions/Firebase';
@@ -17,7 +17,7 @@ class App extends Component {
       this.checkForID();
     }
     state = {
-      admin: false,
+      admin: true,
       events: [],
       comingSoon: [],
       currentEvent: {},
@@ -28,6 +28,7 @@ class App extends Component {
     render() {
       const {admin, events, currentEvent, currentEventID, liveEvent, notes, comingSoon} = this.state;
       const {addEvent, makeEventLive, addEventNote, editQuestion, closeEvent, deleteEvent} = this;
+
     return (<Router>
       <div id="app">
         {admin ?  

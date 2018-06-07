@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/Login.css';
+import '../mainCss/Pages/login.css';
 
 class Login extends Component {
     state = {
@@ -12,7 +12,7 @@ class Login extends Component {
     const {login} = this.props
     const height = 35;
     return (<section id="Login">        
-        <div id="logo">
+        <div id="login-logo">
             {/*  H */}
                 <svg className="letter">
                 <path
@@ -63,11 +63,11 @@ class Login extends Component {
         <form>
             <h2> Admin Login </h2>
             <div className="form-group">
-                <label for="exampleInputEmail1">Email address</label>
+                <label htmlFor="exampleInputEmail1">Email address</label>
                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" onChange={updateEmail} value={email}/>
             </div>
             <div className="form-group">
-                <label for="exampleInputPassword1">Password</label>
+                <label htmlFor="exampleInputPassword1">Password</label>
                 <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={updatePassword} value={password}/>
             </div>
             <button type="submit" className="btn btn-primary" onClick={() => login(email, password)}>Login</button>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import '../../css/AllEventsCurrentEvent.css';
+// import '../../css/AllEventsCurrentEvent.css';
 
 class AllEventsCurrentEvent extends Component {
     componentDidMount() {
