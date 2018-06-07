@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import '../../css/AddEvent.css';
+import '../../mainCss/Generic/addEvent.css';
 
 class AddEvent extends Component {
     state = {

@@ -112,7 +112,8 @@ class App extends Component {
 
     checkForID = () => {
       const currentEventID = localStorage.getItem('currentEventID');
-      const currentEvent = JSON.parse(localStorage.getItem('currentEvent'));
+      let currentEvent = JSON.parse(localStorage.getItem('currentEvent'));
+      if (!currentEvent) currentEvent = ''
       if (currentEventID) this.setState({currentEventID, currentEvent});
     }
 
@@ -124,7 +125,7 @@ class App extends Component {
 
     closeEvent = () => {
       localStorage.setItem('currentEventID', '')
-      localStorage.setItem('currentEvent', '')
+      localStorage.setItem('currentEvent', false)
       this.setState({
         currentEvent : {},
         currentEventID : "",

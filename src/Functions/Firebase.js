@@ -8,7 +8,8 @@ import {
     updateQuestionInFireBaseURL,
     moveAllQuestionsToCurrentQuestionsCollectionInFirebaseURL,
     makeQuestionLiveInFirebaseURL,
-    postAnswerToFirebaseURL
+    postAnswerToFirebaseURL,
+    startEventURL
 } from '../api/index';
 
 /* AVAILABLE FUNCTIONS
@@ -78,7 +79,8 @@ export function postCurrentEventToFirebase (event) {
                 live: false,
                 complete: false,
                 answers_num: 3,
-                answer: false
+                answer: false,
+                userAnswers: {}
             };
         currentEvent[`answers_for_Q${i}`] = {};
     }
@@ -139,14 +141,18 @@ export function makeQuestionLiveInFirebase (questionNo) {
 export function postAnswerToFirebase (answer, question, event_id) {
     return axios.post(postAnswerToFirebaseURL, {correct: answer, question: `${question}`, event_id}) 
     .then((res) => {
-        console.log(res.data);
-        const userAnswers = res.data;
-        // const userAnswers = {
-
-        // }
-        return {question_id :question, userAnswers}
+        const question_id = question
+        const questionAnswers = res.data.results[question_id];
+        return {question_id, questionAnswers}
     })
     .catch(err => {
         return null
     })
-}   
+} 
+
+export function startEvent (currentEventID) {
+    axios.get(`${startEventURL}?event=${currentEventID}`)
+    .then(res => {
+        return res.data.total_users;
+    })
+}

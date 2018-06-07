@@ -7,3 +7,4 @@ export const updateQuestionInFireBaseURL = 'https://us-central1-test-database-92
 export const moveAllQuestionsToCurrentQuestionsCollectionInFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/questionsToCurrentQuestions';
 export const makeQuestionLiveInFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/changeLiveStatus';
 export const postAnswerToFirebaseURL = 'https://us-central1-test-database-92434.cloudfunctions.net/fulfillQuestion';
+export const startEventURL = 'https://us-central1-test-database-92434.cloudfunctions.net/startEvent';

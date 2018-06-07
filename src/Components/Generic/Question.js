@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/CurrentEvent/Question.css';
+import '../../mainCss/Generic/question.css';
 import {} from '../../Functions/Firebase';
 
 class Question extends Component {
@@ -22,7 +22,7 @@ class Question extends Component {
         makeQuestionLive, sendAnswer
     } = this.props;
     const {questionInput} = this.state.questionInputInfo;
-    const {updateInput, setUpdateQuestion, buttonToDisplayFunc} = this;
+    const {updateInput, setUpdateQuestion, buttonToDisplayFunc, setAnswers} = this;
 
     const date = new Date(question.timeToSet)
     let hours = date.getHours();
@@ -30,6 +30,10 @@ class Question extends Component {
     let minutes = date.getMinutes();
     if (minutes < 10) minutes = `0${minutes}`;
     const time = `${hours}:${minutes}`;
+
+    const answerA = setAnswers('ans_a');
+    const answerB = setAnswers('ans_b');
+    const answerC = setAnswers('ans_c');
 
     const buttonToDisplay = buttonToDisplayFunc();
     return (<div className="question">
@@ -39,14 +43,14 @@ class Question extends Component {
         <div className="question-choices">
             <div className="question-choices-choice" 
                 id={question.answer ? question.answer === 'ans_a' ? 'correct-answer' : 'wrong-answer'
-                    : 'a'}> {question.ans_a}</div>
+                    : 'a'}> {question.ans_a} ({answerA}) </div>
             <div className="question-choices-choice" 
                 id={question.answer ? question.answer === 'ans_b' ? 'correct-answer' : 'wrong-answer' 
-                    : 'a'}> {question.ans_b}</div> 
+                    : 'a'}> {question.ans_b} ({answerB})</div> 
             {question.ans_c ?
                 <div className="question-choices-choice" 
                     id={question.answer ? question.answer === 'ans_c' ? 'correct-answer' : 'wrong-answer'
-                        : 'a'}> {question.ans_c}</div>
+                        : 'a'}> {question.ans_c} ({answerC})</div>
                 :
                 <div className="question-choices-choice" id="no-choice"> n/a</div>
             }  
@@ -146,6 +150,13 @@ class Question extends Component {
         question.timeToSet = Date.parse(time);
 
         this.props.editQuestion(question)
+    }
+
+    setAnswers = (choice) => {
+        const question = this.props.question;
+        if (!question.answer) return 0;
+        const answersScroe = Object.keys(question.userAnswers[choice]).length;
+        return answersScroe;
     }
 }
 

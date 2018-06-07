@@ -1,0 +1,50 @@
+#current-event-notes {
+    height: 52vh;
+}
+
+#current-event-notes-pannel {
+    width: 98%;
+    height: 40vh;
+    color: red;
+    background-color: lightgray;
+    border: 10px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 10px auto;
+    overflow-y: auto;
+}
+
+.note {
+    border-bottom: 1px solid black;
+    padding: 8px 0;
+}
+
+#current-event-notes-input {
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 5px;
+    padding: 0 10px;
+    margin: 10px auto; 
+}
+
+#current-event-notes-input input {
+    height: 4vh;
+    text-indent: 0.5em;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+#current-event-notes-input button {
+    width: 75px;
+    height: 4vh;
+    color: black;
+    display: block;
+    margin: 0 auto;
+}
+
+@media(min-width: 600px) {
+    #current-event-notes-input {
+        grid-template-columns: 8fr 1fr;
+    }
+}

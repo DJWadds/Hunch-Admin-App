@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-// import '../css/CurrentEvent.css';
-import {getCurrentEventFromFirebaseUsingId, updateQuestionInFireBase, makeQuestionLiveInFirebase, postAnswerToFirebase} from '../Functions/Firebase';
-import {changeQuestion, findNextQuestion} from '../Functions/index';
+import '../mainCss/Pages/currentEvent.css';
+import {getCurrentEventFromFirebaseUsingId, updateQuestionInFireBase, makeQuestionLiveInFirebase, postAnswerToFirebase, startEvent} from '../Functions/Firebase';
+import {findNextQuestion} from '../Functions/index';
 
+import Clock from '../Components/Generic/Clock';
 import Information from '../Components/CurrentEvent/Information';
 import Questions from '../Components/CurrentEvent/Questions';
 import Notes from '../Components/CurrentEvent/Notes';
 import Graphs from '../Components/CurrentEvent/Graphs';
+import Button from '../Components/Generic/Button';
 
 class CurrentEvent extends Component {
     componentDidMount () {
@@ -17,33 +19,32 @@ class CurrentEvent extends Component {
     state = {
         loading: true,
         currentEvent: {},
-        nextQuestion: 1,
-        userAnswers: {},
-        currentQuestion: 0,
+        currentQuestion: 5,
+        showLeaderboard: false
     };
     render() {
     const {
         currentEventID, notes, 
         addEventNote
     } = this.props;
-    const {currentEvent, nextQuestion} = this.state;
-    const {editQuestion, eventClose, makeQuestionLive, sendAnswer} = this;
-    const results = this.state.userAnswers;
-    const currentQuestion = this.state.currentQuestion;
-
+    const {currentEvent, currentQuestion, showLeaderboard} = this.state;
+    const {editQuestion, eventClose, eventStart, makeQuestionLive, sendAnswer, switchShowLeaderboard} = this;
     if (currentEventID.length < 1) return <div> No Current Event </div>
     return (
         !this.state.loading &&
         <section id="current-event">
-            <div id="current-event-left">
-                <Information currentEvent={currentEvent} eventClose={eventClose} nextQuestion={nextQuestion}/>
+                <Clock/>
+                {showLeaderboard && <Information currentEvent={currentEvent} currentQuestion={currentQuestion}/>}
+                <Button text="Show Leaderboard" onClick={switchShowLeaderboard} />
                 <Questions currentEvent={currentEvent} editQuestion={editQuestion} makeQuestionLive={makeQuestionLive} sendAnswer={sendAnswer}/>
-            </div>
-            <div id="current-event-right">
+            <div id="current-event-bottom">
                 <Notes notes={notes} addEventNote={addEventNote}/>
-                <Graphs results={results} currentQuestion={currentQuestion} />
+                <Graphs currentEvent={currentEvent} currentQuestion={currentQuestion} />
             </div>
-        
+            <div id="current-event-information-buttons">
+                <button type="button" className="btn btn-warning" onClick={eventStart}>Start Event</button>
+                <button type="button" className="btn btn-warning" onClick={eventClose}>Stop Event</button>
+            </div>
         </section>
     );
     }
@@ -77,7 +78,7 @@ class CurrentEvent extends Component {
         return makeQuestionLiveInFirebase(questionId)
         .then(() => {
             let question = this.state.currentEvent[questionId];
-            if (condition = 'stop') question.closed = true;
+            if (condition === 'stop') question.closed = true;
             question.live = !question.live;
             this.editQuestion(question)
         })
@@ -85,14 +86,16 @@ class CurrentEvent extends Component {
 
     sendAnswer = (answer, questionId) => {
         return postAnswerToFirebase(answer, questionId, this.props.currentEventID)
-        .then((responseObj) => {
-            const {question_id, userAnswers} = responseObj;
-            console.log(`Question ${question_id} answer set!`)
+        .then(({question_id, questionAnswers}) => {
+            console.log(questionAnswers)
             let question = this.state.currentEvent[question_id];
             question.complete = true;
             question.answer = answer;
+            question.userAnswers = questionAnswers
+            let currentQuestion = this.state.currentQuestion
+            currentQuestion++
+            this.setState({currentQuestion})
             this.editQuestion(question)
-            this.answeredQuestionGraphs(userAnswers, question_id);
         })
         .catch(err => {
             console.log(err)
@@ -104,16 +107,16 @@ class CurrentEvent extends Component {
         this.props.closeEvent();
     }
 
-    answeredQuestionGraphs = (userAnswers, question_id) => {
-        console.log(userAnswers);
-        const results = userAnswers.results;
-        this.setState({
-          userAnswers: results,
-          currentQuestion: question_id
+    switchShowLeaderboard = () => {
+        this.setState({showLeaderboard : !this.state.showLeaderboard})
+    }
+
+    eventStart = () => {
+        startEvent(this.props.currentEventID)
+        .then(totalUsers => {
+            console.log(totalUsers)
         })
-      }
-
-
+    }
 }
 
 export default CurrentEvent;
