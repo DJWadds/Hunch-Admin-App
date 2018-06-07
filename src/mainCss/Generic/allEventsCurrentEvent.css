@@ -1,0 +1,32 @@
+#all-events-current-event {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#all-events-current-event-information {
+    padding: 5px;
+}
+
+#all-events-current-event-information h2 {
+    text-align: center;
+}
+
+#all-events-current-event-information button {
+    width: 120px;
+    display: block;
+    background-color: aqua;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 5px auto;
+}
+
+@media(min-width: 600px) {
+    #all-events-current-event {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    #all-events-current-event-information div {
+        padding-left: 15px;
+    }
+}

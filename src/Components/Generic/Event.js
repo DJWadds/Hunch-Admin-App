@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/Event.css';
+import '../../mainCss/Generic/event.css';
 
 class Event extends Component {
     componentDidMount() {

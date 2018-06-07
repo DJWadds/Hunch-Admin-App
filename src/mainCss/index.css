@@ -6,3 +6,8 @@
 img {
     width: 100%;
 }
+
+#app {
+    max-width: 1260px;;
+    margin: 0 auto;
+}
