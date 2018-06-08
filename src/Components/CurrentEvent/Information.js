@@ -11,7 +11,7 @@ class Information extends Component {
     }
     render() {
         const {leaderboard} = this.state;
-        if (leaderboard.length === 0) return null;
+        console.log(leaderboard)
     return (<section id="current-event-information">
         {leaderboard.map((user) => {
             return <div className='one-player'> 
@@ -22,12 +22,25 @@ class Information extends Component {
     </section>);
     }
     setLeaderboard = () => {
-        const currentQuestion = this.props.currentQuestion;
+        const currentQuestion = this.findQuestionNumber()
+        console.log(currentQuestion)
+        if (currentQuestion === 0) return null
         const currentEvent = this.props.currentEvent
         const users = allUsersArray(currentEvent, currentQuestion);
         const leaderboardScores = scoreSetter(currentEvent, currentQuestion, users);
         const leaderboard = leaderBoardSetter(leaderboardScores)
         this.setState({leaderboard})
+    }
+
+    findQuestionNumber = () => {
+        const currentEvent = this.props.currentEvent;
+        let currentQuestion = 0;
+        for (let i = 1; i <= 6; i++) {
+            if (currentEvent[i].answer) {
+                currentQuestion++;
+            }
+        }
+        return currentQuestion;
     }
 }
 

@@ -19,7 +19,7 @@ class CurrentEvent extends Component {
     state = {
         loading: true,
         currentEvent: {},
-        currentQuestion: 1,
+        currentQuestion: 6,
         showLeaderboard: false
     };
     render() {
