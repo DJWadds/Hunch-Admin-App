@@ -44,7 +44,7 @@ class Graphs extends Component {
         </div>
         <div id='graph-buttons'>
             {questionNumber > 1 && <Button text="Prev" onClick={() => moveGraph('pre')} />}
-            {questionNumber < 7 && <Button text="Next" onClick={() => moveGraph('next')} />}
+            {questionNumber < 6 && <Button text="Next" onClick={() => moveGraph('next')} />}
         </div>
     </section>);
     }

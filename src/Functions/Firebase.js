@@ -151,7 +151,7 @@ export function postAnswerToFirebase (answer, question, event_id) {
 } 
 
 export function startEvent (currentEventID) {
-    axios.get(`${startEventURL}?event=${currentEventID}`)
+    return axios.get(`${startEventURL}?event=${currentEventID}`)
     .then(res => {
         return res.data.total_users;
     })

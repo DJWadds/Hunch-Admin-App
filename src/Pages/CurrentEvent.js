@@ -112,7 +112,7 @@ class CurrentEvent extends Component {
     }
 
     eventStart = () => {
-        startEvent(this.props.currentEventID)
+        return startEvent(this.props.currentEventID)
         .then(totalUsers => {
             console.log(totalUsers)
         })

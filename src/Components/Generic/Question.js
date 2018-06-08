@@ -34,7 +34,11 @@ class Question extends Component {
 
     const answerA = setAnswers('ans_a');
     const answerB = setAnswers('ans_b');
-    const answerC = setAnswers('ans_c');
+    let answerC = 'n/a';
+    if (question.answers_num === 3) {
+        answerC = setAnswers('ans_c');
+    }
+    
 
     const buttonToDisplay = buttonToDisplayFunc();
     return (<div className="question">
