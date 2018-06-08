@@ -23,36 +23,45 @@ class Graphs extends Component {
               ]
             }]
         },
-        questionNumber: 0
+        questionNumber: 0,
+        dataToPass: false
     };
         
     render() {
         const {currentEvent, currentQuestion} = this.props;
-        const {graphData, questionNumber} = this.state;
+        const {graphData, questionNumber, dataToPass} = this.state;
         const {moveGraph} = this;
         if (graphData.data === [0, 0, 0]) <div> No Graphs </div>;
     return (<section id="current-event-graphs">
         <div id='graph'>
             <h2> Question {questionNumber} Answers </h2>
-            <Doughnut data={graphData} />
+            {dataToPass ? 
+                <Doughnut data={graphData} />
+            :
+                <h3> No Graph Data </h3>
+            }
+
         </div>
         <div id='graph-buttons'>
             {questionNumber > 1 && <Button text="Prev" onClick={() => moveGraph('pre')} />}
-            {questionNumber < 7 && questionNumber < currentQuestion && <Button text="Next" onClick={() => moveGraph('next')} />}
+            {questionNumber < 7 && <Button text="Next" onClick={() => moveGraph('next')} />}
         </div>
     </section>);
     }
 
     setGraph = (questionNumber) => {
         const currentEvent = this.props.currentEvent;
-        if (currentEvent.length === 0) return null;
+        if (currentEvent.length === 0) {
+            this.setState({dataToPass : false})
+            return null
+        }
         let graphData = this.state.graphData;
         let answerScore = {ans_a: 0, ans_b: 0, ans_c: 0}
         Object.values(currentEvent[`answers_for_Q${questionNumber}`]).forEach(answer => {
             answerScore[answer]++
         });
         graphData.datasets[0].data = [answerScore.ans_a, answerScore.ans_b, answerScore.ans_c]
-        this.setState({graphData, questionNumber})
+        this.setState({graphData, questionNumber, dataToPass : true})
     }
 
     moveGraph = (way) => {

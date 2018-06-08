@@ -39,6 +39,8 @@
 }
 
 .question button {
+    width: 100px;
+    color: black;
     display: block;
     margin: 0 auto 5px;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../mainCss/Generic/question.css';
 import {} from '../../Functions/Firebase';
+import Button from './Button';
 
 class Question extends Component {
     componentDidMount () {
@@ -65,11 +66,11 @@ class Question extends Component {
                     <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id, 'live')}>live</button>   
                 </div>
             }
-            {buttonToDisplay === 1 && <button type="button" className="btn btn-primary" onClick={() => makeQuestionLive(question.id, 'stop')}>Stop</button>}
+            {buttonToDisplay === 1 && <Button onClick={() => makeQuestionLive(question.id, 'stop')} text='Stop' />}
             {buttonToDisplay === 2 && <div>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => sendAnswer('ans_a', question.id)}>{question.ans_a}</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => sendAnswer('ans_b', question.id)}>{question.ans_b}</button>
-                {question.answers_num === 3 && <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => sendAnswer('ans_c', question.id)}>{question.ans_c}</button>}
+                <Button onClick={() => sendAnswer('ans_a', question.id)} text={question.ans_a} />
+                <Button onClick={() => sendAnswer('ans_b', question.id)} text={question.ans_b} />
+                {question.answers_num === 3 && <Button onClick={() => sendAnswer('ans_c', question.id)} text={question.ans_c} />}
             </div>}
         </div>
 

@@ -8,7 +8,7 @@ class Information extends Component {
     }
     state= {
         leaderboard: [],
-    };
+    }
     render() {
         const {leaderboard} = this.state;
         if (leaderboard.length === 0) return null;
