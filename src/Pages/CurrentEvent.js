@@ -20,7 +20,7 @@ class CurrentEvent extends Component {
         loading: true,
         currentEvent: {},
         currentQuestion: 6,
-        showLeaderboard: false
+        showLeaderboard: false,
     };
     render() {
     const {
